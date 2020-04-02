@@ -6,5 +6,4 @@ services:
     ports:
       - 4000:4000
     volumes:
-      - ./docs-site/:/srv/jekyll
-      - ./bundles/:/usr/local/bundle
+      - ./:/srv/jekyll
