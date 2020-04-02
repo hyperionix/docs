@@ -1,0 +1,25 @@
+theme: just-the-docs
+title: Hyperionix Development Center
+baseurl: "/" 
+url: "https://docs.hyperionix.com"
+
+heading_anchors: true
+# search_enabled: true
+# search_tokenizer_separator: /[\s/]+/
+
+# Aux links for the upper right navigation
+aux_links:
+  "Hyperionix Packages on GitHub":
+    - "//github.com/hyperionix/hyperionix"
+
+footer_content: "Copyright &copy; 2020 Hyperionix, Inc."
+
+# ga_tracking: UA-2709176-10
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  startings: []
+  blanklines: false
+  profile: false
