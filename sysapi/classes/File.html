@@ -1,0 +1,374 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>hp-sysapi reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>hp-sysapi</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><strong>File</strong></li>
+  <li><a href="../classes/FileVersion.html">FileVersion</a></li>
+  <li><a href="../classes/Process.html">Process</a></li>
+  <li><a href="../classes/Token.html">Token</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/Time.html">Time</a></li>
+  <li><a href="../modules/Path.html">Path</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>File</code></h1>
+<p>Class describes system File object</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#File.open">File.open (path, disp[, access=GENERIC_READWRITE[, attr=FILE_ATTRIBUTE_NORMAL[, share=FILE_SHARE_ALL]]])</a></td>
+	<td class="summary">Create or open a file</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File.fromHandle">File.fromHandle (handle)</a></td>
+	<td class="summary">Create <a href="../classes/File.html#">File</a> object from a handle</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File.stringifyAttributes">File.stringifyAttributes (attrs)</a></td>
+	<td class="summary">Stringify file attributes mask</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File:read">File:read ([readSize=all])</a></td>
+	<td class="summary">Read the whole data of file or a part</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File:getPath">File:getPath ()</a></td>
+	<td class="summary">Determine the file path</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File:getVersion">File:getVersion ()</a></td>
+	<td class="summary">Get <a href="../classes/FileVersion.html#">FileVersion</a> object of the file</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File:queryTimes">File:queryTimes ()</a></td>
+	<td class="summary">Query time values of the file</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File:queryAttributes">File:queryAttributes ()</a></td>
+	<td class="summary">Query the file attributes</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File:queryInfo">File:queryInfo (infoClass, typeName)</a></td>
+	<td class="summary">Query information about the file</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File:close">File:close ()</a></td>
+	<td class="summary">Close the file</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+    Methods
+    <dl class="function">
+    <dt>
+    <a name = "File.open"></a>
+    <strong>File.open (path, disp[, access=GENERIC_READWRITE[, attr=FILE_ATTRIBUTE_NORMAL[, share=FILE_SHARE_ALL]]])</strong>
+    </dt>
+    <dd>
+    Create or open a file
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">path</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         to file
+        </li>
+        <li><span class="parameter">disp</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">access</span>
+            <span class="types"><span class="type">int</span></span>
+         to the file
+         (<em>default</em> GENERIC_READWRITE)
+        </li>
+        <li><span class="parameter">attr</span>
+            <span class="types"><span class="type">int</span></span>
+         fileattributes
+         (<em>default</em> FILE_ATTRIBUTE_NORMAL)
+        </li>
+        <li><span class="parameter">share</span>
+            <span class="types"><span class="type">int</span></span>
+         sharing options
+         (<em>default</em> FILE_SHARE_ALL)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/File.html#">File</a> object or <code>nil</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File.fromHandle"></a>
+    <strong>File.fromHandle (handle)</strong>
+    </dt>
+    <dd>
+    Create <a href="../classes/File.html#">File</a> object from a handle
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">handle</span>
+            <span class="types"><span class="type">int</span></span>
+         to the file
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/File.html#">File</a> object or <code>nil</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File.stringifyAttributes"></a>
+    <strong>File.stringifyAttributes (attrs)</strong>
+    </dt>
+    <dd>
+    Stringify file attributes mask
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">attrs</span>
+            <span class="types"><span class="type">int</span></span>
+         file attributes
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string representation of the mask
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File:read"></a>
+    <strong>File:read ([readSize=all])</strong>
+    </dt>
+    <dd>
+    Read the whole data of file or a part
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">readSize</span>
+            <span class="types"><span class="type">int</span></span>
+         size of data to read
+         (<em>default</em> all)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        read data or <code>nil</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File:getPath"></a>
+    <strong>File:getPath ()</strong>
+    </dt>
+    <dd>
+    Determine the file path
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the file path
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File:getVersion"></a>
+    <strong>File:getVersion ()</strong>
+    </dt>
+    <dd>
+    Get <a href="../classes/FileVersion.html#">FileVersion</a> object of the file
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/FileVersion.html#">FileVersion</a> object or <code>nil</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File:queryTimes"></a>
+    <strong>File:queryTimes ()</strong>
+    </dt>
+    <dd>
+    Query time values of the file
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+        create time</li>
+        <li>
+        last write time</li>
+        <li>
+        last read time</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File:queryAttributes"></a>
+    <strong>File:queryAttributes ()</strong>
+    </dt>
+    <dd>
+    Query the file attributes
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        file attributes or <code>nil</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File:queryInfo"></a>
+    <strong>File:queryInfo (infoClass, typeName)</strong>
+    </dt>
+    <dd>
+    Query information about the file
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">infoClass</span>
+         <code>FILE_INFORMATION_CLASS</code>
+        </li>
+        <li><span class="parameter">typeName</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         name of the corresponding type
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        typed pointer depends on <code>typeName</code> or <code>nil</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File:close"></a>
+    <strong>File:close ()</strong>
+    </dt>
+    <dd>
+    Close the file
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2020-04-07 20:32:08 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

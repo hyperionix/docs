@@ -1,0 +1,627 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>hp-sysapi reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>hp-sysapi</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Fields">Fields</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/File.html">File</a></li>
+  <li><a href="../classes/FileVersion.html">FileVersion</a></li>
+  <li><strong>Process</strong></li>
+  <li><a href="../classes/Token.html">Token</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/Time.html">Time</a></li>
+  <li><a href="../modules/Path.html">Path</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>Process</code></h1>
+<p>Class describes system Process object</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Process.run">Process.run (cmdLine)</a></td>
+	<td class="summary">Create process with command line</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process.open">Process.open (pid[, access])</a></td>
+	<td class="summary">Open process by pid</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process.openByName">Process.openByName (process[, access])</a></td>
+	<td class="summary">Open first found process by name</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process.fromHandle">Process.fromHandle (handle)</a></td>
+	<td class="summary">Create Process Object from handle</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:getPolicy">Process:getPolicy (policyType, structType)</a></td>
+	<td class="summary">Get process policy</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:getBackingFile">Process:getBackingFile ()</a></td>
+	<td class="summary">Get then process backing file path</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:memAlloc">Process:memAlloc (size[, protect[, allocType]])</a></td>
+	<td class="summary">Allocate virtual memory in the process</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:memFree">Process:memFree (addr)</a></td>
+	<td class="summary">Free virtual memory region in the process</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:memRead">Process:memRead (addr, buffer, size)</a></td>
+	<td class="summary">Read memory from the process</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:memWrite">Process:memWrite (addr, buffer, size)</a></td>
+	<td class="summary">Write data to the process</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:memProtect">Process:memProtect (addr, size, protect)</a></td>
+	<td class="summary">Change protection of the target memory region</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:memQuery">Process:memQuery (addr)</a></td>
+	<td class="summary">Query information about a memory region</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:queryInfo">Process:queryInfo (infoClass, typeName)</a></td>
+	<td class="summary">General routine to get infomration about the process</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:getToken">Process:getToken ()</a></td>
+	<td class="summary">Get the process token</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:getCreateTime">Process:getCreateTime ()</a></td>
+	<td class="summary">Get the process create time UNIX timestamp</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:close">Process:close ()</a></td>
+	<td class="summary">Close process handle</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:terminate">Process:terminate ([code])</a></td>
+	<td class="summary">Terminate process with optional code</td>
+	</tr>
+</table>
+<h2><a href="#Fields">Fields</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Process.threadHandle">Process.threadHandle</a></td>
+	<td class="summary">initial thread handle for newly created process</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+    Methods
+    <dl class="function">
+    <dt>
+    <a name = "Process.run"></a>
+    <strong>Process.run (cmdLine)</strong>
+    </dt>
+    <dd>
+    Create process with command line
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">cmdLine</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         process command line
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/Process.html#">Process</a> object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.open"></a>
+    <strong>Process.open (pid[, access])</strong>
+    </dt>
+    <dd>
+    Open process by pid
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pid</span>
+            <span class="types"><span class="type">int</span></span>
+         target process PID
+        </li>
+        <li><span class="parameter">access</span>
+            <span class="types"><span class="type">int</span></span>
+         access to the process object
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/Process.html#">Process</a> object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.openByName"></a>
+    <strong>Process.openByName (process[, access])</strong>
+    </dt>
+    <dd>
+    Open first found process by name
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">process</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         name to open
+        </li>
+        <li><span class="parameter">access</span>
+            <span class="types"><span class="type">int</span></span>
+         access to the process object
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/Process.html#">Process</a> object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.fromHandle"></a>
+    <strong>Process.fromHandle (handle)</strong>
+    </dt>
+    <dd>
+    Create Process Object from handle
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">handle</span>
+            <span class="types"><span class="type">int</span></span>
+         handle of the process
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/Process.html#">Process</a> object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process:getPolicy"></a>
+    <strong>Process:getPolicy (policyType, structType)</strong>
+    </dt>
+    <dd>
+    Get process policy
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">policyType</span>
+            <span class="types"><span class="type">int</span></span>
+         type of policy
+        </li>
+        <li><span class="parameter">structType</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         name of struct of policy type
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        typed policy data buffer depends on <code>structType</code> or <code>nil</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process:getBackingFile"></a>
+    <strong>Process:getBackingFile ()</strong>
+    </dt>
+    <dd>
+    Get then process backing file path
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        the process backing file path or <code>nil</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process:memAlloc"></a>
+    <strong>Process:memAlloc (size[, protect[, allocType]])</strong>
+    </dt>
+    <dd>
+    Allocate virtual memory in the process
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">size</span>
+            <span class="types"><span class="type">int</span></span>
+         of memory
+        </li>
+        <li><span class="parameter">protect</span>
+            <span class="types"><span class="type">int</span></span>
+         the memory protection for the region of the pages
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">allocType</span>
+            <span class="types"><span class="type">int</span></span>
+         the type of memory allocation
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        pointer to the allocated region or <code>nil</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process:memFree"></a>
+    <strong>Process:memFree (addr)</strong>
+    </dt>
+    <dd>
+    Free virtual memory region in the process
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">addr</span>
+            <span class="types"><span class="type">int</span></span>
+         address of the memory region
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code> if success or <code>false</code> otherwise
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process:memRead"></a>
+    <strong>Process:memRead (addr, buffer, size)</strong>
+    </dt>
+    <dd>
+    Read memory from the process
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">addr</span>
+            <span class="types"><span class="type">int</span></span>
+         address of the memory region
+        </li>
+        <li><span class="parameter">buffer</span>
+         (<strong><em>cdata</em></strong>) buffer to read into
+        </li>
+        <li><span class="parameter">size</span>
+            <span class="types"><span class="type">int</span></span>
+         size of bytes to read
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code> if success or <code>false</code> otherwise
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process:memWrite"></a>
+    <strong>Process:memWrite (addr, buffer, size)</strong>
+    </dt>
+    <dd>
+    Write data to the process
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">addr</span>
+            <span class="types"><span class="type">int</span></span>
+         address of the memory region
+        </li>
+        <li><span class="parameter">buffer</span>
+         (<strong><em>cdata</em></strong> or <strong><em>string</em></strong>) buffer with data to write
+        </li>
+        <li><span class="parameter">size</span>
+            <span class="types"><span class="type">int</span></span>
+         of the data (<em>optional if</em> <code>buffer</code> <em>is string</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code> if success or <code>false</code> otherwise
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process:memProtect"></a>
+    <strong>Process:memProtect (addr, size, protect)</strong>
+    </dt>
+    <dd>
+    Change protection of the target memory region
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">addr</span>
+            <span class="types"><span class="type">int</span></span>
+         address of the memory region
+        </li>
+        <li><span class="parameter">size</span>
+            <span class="types"><span class="type">int</span></span>
+         size of the region
+        </li>
+        <li><span class="parameter">protect</span>
+         new protect of the memory region
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code> if success or <code>false</code> otherwise
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process:memQuery"></a>
+    <strong>Process:memQuery (addr)</strong>
+    </dt>
+    <dd>
+    Query information about a memory region
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">addr</span>
+            <span class="types"><span class="type">int</span></span>
+         address of the memory region
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="https://docs.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-memory_basic_information"><code>MEMORY_BASIC_INFORMATION</code></a> or <code>nil</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process:queryInfo"></a>
+    <strong>Process:queryInfo (infoClass, typeName)</strong>
+    </dt>
+    <dd>
+    General routine to get infomration about the process
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">infoClass</span>
+         <code>PROCESSINFOCLASS</code>
+        </li>
+        <li><span class="parameter">typeName</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         name of type corresponding to <code>infoClass</code>
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        typed pointer depends on <code>typeName</code> or <code>nil</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process:getToken"></a>
+    <strong>Process:getToken ()</strong>
+    </dt>
+    <dd>
+    Get the process token
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/Token.html#">Token</a> object or <code>nil</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process:getCreateTime"></a>
+    <strong>Process:getCreateTime ()</strong>
+    </dt>
+    <dd>
+    Get the process create time UNIX timestamp
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process:close"></a>
+    <strong>Process:close ()</strong>
+    </dt>
+    <dd>
+    Close process handle
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process:terminate"></a>
+    <strong>Process:terminate ([code])</strong>
+    </dt>
+    <dd>
+    Terminate process with optional code
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">code</span>
+            <span class="types"><span class="type">int</span></span>
+         process termination status
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Process.threadHandle"></a>
+    <strong>Process.threadHandle</strong>
+    </dt>
+    <dd>
+    initial thread handle for newly created process
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2020-04-07 20:32:08 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
