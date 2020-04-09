@@ -36,16 +36,10 @@
 </ul>
 
 
-<h2>Modules</h2>
-<ul class="nowrap">
-  <li><strong>time</strong></li>
-  <li><a href="../modules/cert.html">cert</a></li>
-  <li><a href="../modules/path.html">path</a></li>
-</ul>
 <h2>Classes</h2>
 <ul class="nowrap">
   <li><a href="../classes/Crypto.html">Crypto</a></li>
-  <li><a href="../classes/CryptoHash.html">CryptoHash</a></li>
+  <li><strong>CryptoHash</strong></li>
   <li><a href="../classes/File.html">File</a></li>
   <li><a href="../classes/FileVersion.html">FileVersion</a></li>
   <li><a href="../classes/Process.html">Process</a></li>
@@ -54,27 +48,35 @@
   <li><a href="../classes/Service.html">Service</a></li>
   <li><a href="../classes/Token.html">Token</a></li>
 </ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/time.html">time</a></li>
+  <li><a href="../modules/cert.html">cert</a></li>
+  <li><a href="../modules/path.html">path</a></li>
+</ul>
 
 </div>
 
 <div id="content">
 
-<h1>Module <code>time</code></h1>
-<p>Time operations</p>
-<p>
-
-</p>
+<h1>Class <code>CryptoHash</code></h1>
+<p>Class describes CryptoHash object</p>
+<p> The object could be created directly, use <a href="../classes/Crypto.html#Crypto:Hash">Crypto:Hash</a> instead</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#time.toUnixTimestamp">time.toUnixTimestamp (ft)</a></td>
-	<td class="summary">Convert Windows FILETIME into UNIX timestamp</td>
+	<td class="name" nowrap><a href="#CryptoHash:update">CryptoHash:update (data, size)</a></td>
+	<td class="summary">Update CryptoHash object hash value with data</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#time.toHumanReadable">time.toHumanReadable (ts)</a></td>
-	<td class="summary">Convert UNIX timestamp to human readable representation</td>
+	<td class="name" nowrap><a href="#CryptoHash:digest">CryptoHash:digest ()</a></td>
+	<td class="summary">Return the digest of the hash</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#CryptoHash:hexdigest">CryptoHash:hexdigest ()</a></td>
+	<td class="summary">Return hex string representation</td>
 	</tr>
 </table>
 
@@ -86,24 +88,47 @@
     Methods
     <dl class="function">
     <dt>
-    <a name = "time.toUnixTimestamp"></a>
-    <strong>time.toUnixTimestamp (ft)</strong>
+    <a name = "CryptoHash:update"></a>
+    <strong>CryptoHash:update (data, size)</strong>
     </dt>
     <dd>
-    Convert Windows FILETIME into UNIX timestamp
+    Update CryptoHash object hash value with data
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">ft</span>
-         Windows FILETIME
+        <li><span class="parameter">data</span>
+
+
+
+        </li>
+        <li><span class="parameter">size</span>
+
+
+
         </li>
     </ul>
 
+
+
+
+
+</dd>
+    <dt>
+    <a name = "CryptoHash:digest"></a>
+    <strong>CryptoHash:digest ()</strong>
+    </dt>
+    <dd>
+    Return the digest of the hash
+
+
+
     <h3>Returns:</h3>
     <ol>
-
-        UNIX timestamp
+        <li>
+        byte buffer of hash value</li>
+        <li>
+        size of the buffer</li>
     </ol>
 
 
@@ -111,24 +136,18 @@
 
 </dd>
     <dt>
-    <a name = "time.toHumanReadable"></a>
-    <strong>time.toHumanReadable (ts)</strong>
+    <a name = "CryptoHash:hexdigest"></a>
+    <strong>CryptoHash:hexdigest ()</strong>
     </dt>
     <dd>
-    Convert UNIX timestamp to human readable representation
+    Return hex string representation
 
 
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">ts</span>
-         UNIX timestamp value
-        </li>
-    </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        string with human representation of the timestamp
+        hex string of the hash value
     </ol>
 
 

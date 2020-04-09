@@ -1,0 +1,362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>hp-sysapi reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>hp-sysapi</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Crypto.html">Crypto</a></li>
+  <li><a href="../classes/CryptoHash.html">CryptoHash</a></li>
+  <li><a href="../classes/File.html">File</a></li>
+  <li><a href="../classes/FileVersion.html">FileVersion</a></li>
+  <li><a href="../classes/Process.html">Process</a></li>
+  <li><strong>RegKey</strong></li>
+  <li><a href="../classes/ServiceManager.html">ServiceManager</a></li>
+  <li><a href="../classes/Service.html">Service</a></li>
+  <li><a href="../classes/Token.html">Token</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/time.html">time</a></li>
+  <li><a href="../modules/cert.html">cert</a></li>
+  <li><a href="../modules/path.html">path</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>RegKey</code></h1>
+<p>Class describes Registry Key object</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#RegKey:create">RegKey:create (parentKeyHandle, keyName[, access=KEY_ALL_ACCESS[, options=REG_OPTION_NON_VOLATILE]])</a></td>
+	<td class="summary">Create or open if exists a key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RegKey:open">RegKey:open (parentKeyHandle, keyName[, access=KEY_ALL_ACCESS[, options=0]])</a></td>
+	<td class="summary">Open existing key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RegKey:getVal">RegKey:getVal (valueName[, subKeyName=nil[, size[, flags=RRF_RT_ANY]]])</a></td>
+	<td class="summary">Get value of the key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RegKey:setVal">RegKey:setVal (valueName, valueType, data, size[, subKeyName])</a></td>
+	<td class="summary">Set value of the key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RegKey:getMaxSubkeyNameLen">RegKey:getMaxSubkeyNameLen ()</a></td>
+	<td class="summary">Get the size of the key's subkey with the longest name</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RegKey:getMaxValueInfo">RegKey:getMaxValueInfo ()</a></td>
+	<td class="summary">Get max value info</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RegKey:getAllInfo">RegKey:getAllInfo ()</a></td>
+	<td class="summary">Get all information about the key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RegKey:forEachKey">RegKey:forEachKey (func)</a></td>
+	<td class="summary">Enumerate all subkeys of the key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RegKey:forEachValue">RegKey:forEachValue (func)</a></td>
+	<td class="summary">Enumerate all values of the key</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+    Methods
+    <dl class="function">
+    <dt>
+    <a name = "RegKey:create"></a>
+    <strong>RegKey:create (parentKeyHandle, keyName[, access=KEY_ALL_ACCESS[, options=REG_OPTION_NON_VOLATILE]])</strong>
+    </dt>
+    <dd>
+    Create or open if exists a key
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">parentKeyHandle</span>
+         handle of the parent key or one of predefined keys: <code>&quot;HKEY_CLASSES_ROOT&quot;</code>, <code>&quot;HKEY_CURRENT_USER&quot;</code>, <code>&quot;HKEY_LOCAL_MACHINE&quot;</code>, <code>&quot;HKEY_USERS&quot;</code>
+        </li>
+        <li><span class="parameter">keyName</span>
+         name of the target key
+        </li>
+        <li><span class="parameter">access</span>
+         access attributes to the key
+         (<em>default</em> KEY_ALL_ACCESS)
+        </li>
+        <li><span class="parameter">options</span>
+
+
+
+         (<em>default</em> REG_OPTION_NON_VOLATILE)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RegKey:open"></a>
+    <strong>RegKey:open (parentKeyHandle, keyName[, access=KEY_ALL_ACCESS[, options=0]])</strong>
+    </dt>
+    <dd>
+    Open existing key
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">parentKeyHandle</span>
+         handle of the parent key or one of predefined keys: <code>&quot;HKEY_CLASSES_ROOT&quot;</code>, <code>&quot;HKEY_CURRENT_USER&quot;</code>, <code>&quot;HKEY_LOCAL_MACHINE&quot;</code>, <code>&quot;HKEY_USERS&quot;</code>
+        </li>
+        <li><span class="parameter">keyName</span>
+         name of the target key
+        </li>
+        <li><span class="parameter">access</span>
+         access attributes to the key
+         (<em>default</em> KEY_ALL_ACCESS)
+        </li>
+        <li><span class="parameter">options</span>
+
+
+
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RegKey:getVal"></a>
+    <strong>RegKey:getVal (valueName[, subKeyName=nil[, size[, flags=RRF_RT_ANY]]])</strong>
+    </dt>
+    <dd>
+    Get value of the key
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">valueName</span>
+         name of the value
+        </li>
+        <li><span class="parameter">subKeyName</span>
+         subkey of the key to get value from
+         (<em>default</em> nil)
+        </li>
+        <li><span class="parameter">size</span>
+         assumed size of the value, if nil the function detemines it itself but it costs additional API call
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">flags</span>
+         operation flags
+         (<em>default</em> RRF_RT_ANY)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RegKey:setVal"></a>
+    <strong>RegKey:setVal (valueName, valueType, data, size[, subKeyName])</strong>
+    </dt>
+    <dd>
+    Set value of the key
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">valueName</span>
+         name of the value
+        </li>
+        <li><span class="parameter">valueType</span>
+         type of the value
+        </li>
+        <li><span class="parameter">data</span>
+         data to write
+        </li>
+        <li><span class="parameter">size</span>
+         size of the data
+        </li>
+        <li><span class="parameter">subKeyName</span>
+         name of the subkey
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        0 on success
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RegKey:getMaxSubkeyNameLen"></a>
+    <strong>RegKey:getMaxSubkeyNameLen ()</strong>
+    </dt>
+    <dd>
+    Get the size of the key's subkey with the longest name
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        maximum len or nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RegKey:getMaxValueInfo"></a>
+    <strong>RegKey:getMaxValueInfo ()</strong>
+    </dt>
+    <dd>
+    Get max value info
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+        the size of the key's longest value name</li>
+        <li>
+        the size of the longest data component among the key's values</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RegKey:getAllInfo"></a>
+    <strong>RegKey:getAllInfo ()</strong>
+    </dt>
+    <dd>
+    Get all information about the key
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        table with registry key information
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RegKey:forEachKey"></a>
+    <strong>RegKey:forEachKey (func)</strong>
+    </dt>
+    <dd>
+    Enumerate all subkeys of the key
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">func</span>
+         function to be called for each key with its name
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RegKey:forEachValue"></a>
+    <strong>RegKey:forEachValue (func)</strong>
+    </dt>
+    <dd>
+    Enumerate all values of the key
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">func</span>
+         functions to be called for each value with <code>name</code>, <code>valueData</code>, <code>valueDataSize</code> and <code>valueType</code>
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2020-04-09 12:45:15 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
