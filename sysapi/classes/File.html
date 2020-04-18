@@ -33,6 +33,7 @@
 <h2>Contents</h2>
 <ul>
 <li><a href="#Functions">Functions</a></li>
+<li><a href="#Fields">Fields</a></li>
 </ul>
 
 
@@ -41,18 +42,24 @@
   <li><a href="../classes/Crypto.html">Crypto</a></li>
   <li><a href="../classes/CryptoHash.html">CryptoHash</a></li>
   <li><strong>File</strong></li>
-  <li><a href="../classes/FileVersion.html">FileVersion</a></li>
+  <li><a href="../classes/FileResources.html">FileResources</a></li>
   <li><a href="../classes/Process.html">Process</a></li>
   <li><a href="../classes/RegKey.html">RegKey</a></li>
   <li><a href="../classes/ServiceManager.html">ServiceManager</a></li>
   <li><a href="../classes/Service.html">Service</a></li>
+  <li><a href="../classes/Sid.html">Sid</a></li>
+  <li><a href="../classes/Thread.html">Thread</a></li>
   <li><a href="../classes/Token.html">Token</a></li>
 </ul>
 <h2>Modules</h2>
 <ul class="nowrap">
-  <li><a href="../modules/time.html">time</a></li>
   <li><a href="../modules/cert.html">cert</a></li>
   <li><a href="../modules/path.html">path</a></li>
+  <li><a href="../modules/fs.html">fs</a></li>
+  <li><a href="../modules/time.html">time</a></li>
+  <li><a href="../modules/bytebuf.html">bytebuf</a></li>
+  <li><a href="../modules/globals.html">globals</a></li>
+  <li><a href="../modules/stringify.html">stringify</a></li>
 </ul>
 
 </div>
@@ -61,9 +68,7 @@
 
 <h1>Class <code>File</code></h1>
 <p>Class describes system File object</p>
-<p>
-
-</p>
+<p> Most of the fields are lazy evaluated</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
@@ -77,6 +82,10 @@
 	<td class="summary">Create <a href="../classes/File.html#">File</a> object from a handle</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#File.fromPath">File.fromPath (path)</a></td>
+	<td class="summary">Create <a href="../classes/File.html#">File</a> object from itspath</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#File.stringifyAttributes">File.stringifyAttributes (attrs)</a></td>
 	<td class="summary">Stringify file attributes mask</td>
 	</tr>
@@ -85,28 +94,51 @@
 	<td class="summary">Read the whole data of file or a part</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#File:getPath">File:getPath ()</a></td>
-	<td class="summary">Determine the file path</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#File:getVersion">File:getVersion ()</a></td>
-	<td class="summary">Get <a href="../classes/FileVersion.html#">FileVersion</a> object of the file</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#File:queryTimes">File:queryTimes ()</a></td>
-	<td class="summary">Query time values of the file</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#File:queryAttributes">File:queryAttributes ()</a></td>
-	<td class="summary">Query the file attributes</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#File:queryInfo">File:queryInfo (infoClass, typeName)</a></td>
+	<td class="name" nowrap><a href="#File:queryInfo">File:queryInfo (infoClass, ctype, ctypePtr)</a></td>
 	<td class="summary">Query information about the file</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#File:close">File:close ()</a></td>
 	<td class="summary">Close the file</td>
+	</tr>
+</table>
+<h2><a href="#Fields">Fields</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#File.accessTime">File.accessTime</a></td>
+	<td class="summary">access time</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File.attributes">File.attributes</a></td>
+	<td class="summary">attributes</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File.changeTime">File.changeTime</a></td>
+	<td class="summary">change time</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File.createTime">File.createTime</a></td>
+	<td class="summary">create time</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File.fullPath">File.fullPath</a></td>
+	<td class="summary">full path</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File.handle">File.handle</a></td>
+	<td class="summary">handle</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File.resources">File.resources</a></td>
+	<td class="summary"><a href="../classes/FileResources.html#">FileResources</a> object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File.signStatus">File.signStatus</a></td>
+	<td class="summary">signature status</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File.signers">File.signers</a></td>
+	<td class="summary">list of signers</td>
 	</tr>
 </table>
 
@@ -115,7 +147,7 @@
 
 
     <h2 class="section-header "><a name="Functions"></a>Functions</h2>
-    Methods
+
     <dl class="function">
     <dt>
     <a name = "File.open"></a>
@@ -129,7 +161,7 @@
     <ul>
         <li><span class="parameter">path</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         to file
+         relative or absolute path to file
         </li>
         <li><span class="parameter">disp</span>
             <span class="types"><span class="type">int</span></span>
@@ -177,6 +209,31 @@
         <li><span class="parameter">handle</span>
             <span class="types"><span class="type">int</span></span>
          to the file
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/File.html#">File</a> object or <code>nil</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File.fromPath"></a>
+    <strong>File.fromPath (path)</strong>
+    </dt>
+    <dd>
+    Create <a href="../classes/File.html#">File</a> object from itspath
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">path</span>
+         full or relative path to the file
         </li>
     </ul>
 
@@ -244,88 +301,8 @@
 
 </dd>
     <dt>
-    <a name = "File:getPath"></a>
-    <strong>File:getPath ()</strong>
-    </dt>
-    <dd>
-    Determine the file path
-
-
-
-    <h3>Returns:</h3>
-    <ol>
-
-        the file path
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "File:getVersion"></a>
-    <strong>File:getVersion ()</strong>
-    </dt>
-    <dd>
-    Get <a href="../classes/FileVersion.html#">FileVersion</a> object of the file
-
-
-
-    <h3>Returns:</h3>
-    <ol>
-
-        <a href="../classes/FileVersion.html#">FileVersion</a> object or <code>nil</code>
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "File:queryTimes"></a>
-    <strong>File:queryTimes ()</strong>
-    </dt>
-    <dd>
-    Query time values of the file
-
-
-
-    <h3>Returns:</h3>
-    <ol>
-        <li>
-        create time</li>
-        <li>
-        last write time</li>
-        <li>
-        last read time</li>
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "File:queryAttributes"></a>
-    <strong>File:queryAttributes ()</strong>
-    </dt>
-    <dd>
-    Query the file attributes
-
-
-
-    <h3>Returns:</h3>
-    <ol>
-
-        file attributes or <code>nil</code>
-    </ol>
-
-
-
-
-</dd>
-    <dt>
     <a name = "File:queryInfo"></a>
-    <strong>File:queryInfo (infoClass, typeName)</strong>
+    <strong>File:queryInfo (infoClass, ctype, ctypePtr)</strong>
     </dt>
     <dd>
     Query information about the file
@@ -336,9 +313,11 @@
         <li><span class="parameter">infoClass</span>
          <code>FILE_INFORMATION_CLASS</code>
         </li>
-        <li><span class="parameter">typeName</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         name of the corresponding type
+        <li><span class="parameter">ctype</span>
+         C type returned by <code>ffi.typeof()</code>
+        </li>
+        <li><span class="parameter">ctypePtr</span>
+         pointer to the type
         </li>
     </ul>
 
@@ -367,13 +346,143 @@
 
 </dd>
 </dl>
+    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "File.accessTime"></a>
+    <strong>File.accessTime</strong>
+    </dt>
+    <dd>
+    access time
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File.attributes"></a>
+    <strong>File.attributes</strong>
+    </dt>
+    <dd>
+    attributes
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File.changeTime"></a>
+    <strong>File.changeTime</strong>
+    </dt>
+    <dd>
+    change time
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File.createTime"></a>
+    <strong>File.createTime</strong>
+    </dt>
+    <dd>
+    create time
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File.fullPath"></a>
+    <strong>File.fullPath</strong>
+    </dt>
+    <dd>
+    full path
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File.handle"></a>
+    <strong>File.handle</strong>
+    </dt>
+    <dd>
+    handle
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File.resources"></a>
+    <strong>File.resources</strong>
+    </dt>
+    <dd>
+    <a href="../classes/FileResources.html#">FileResources</a> object
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File.signStatus"></a>
+    <strong>File.signStatus</strong>
+    </dt>
+    <dd>
+    signature status
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File.signers"></a>
+    <strong>File.signers</strong>
+    </dt>
+    <dd>
+    list of signers
+
+
+
+
+
+
+
+</dd>
+</dl>
 
 
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2020-04-09 12:45:15 </i>
+<i style="float:right;">Last updated 2020-04-18 12:17:11 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

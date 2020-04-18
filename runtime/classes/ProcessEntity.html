@@ -1,0 +1,386 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>hpapi reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>hpapi</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Object_fields">Object fields </a></li>
+<li><a href="#Constructors">Constructors </a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/FileEntity.html">FileEntity</a></li>
+  <li><a href="../classes/PathEntity.html">PathEntity</a></li>
+  <li><strong>ProcessEntity</strong></li>
+  <li><a href="../classes/Hook.html">Hook</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/hp.html">hp</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>ProcessEntity</code></h1>
+<p>Class ProcessEntity describes process entity</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Object_fields">Object fields </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#ProcessEntity.eid">ProcessEntity.eid</a></td>
+	<td class="summary">entity ID</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ProcessEntity.pid">ProcessEntity.pid</a></td>
+	<td class="summary">process ID</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ProcessEntity.ppid">ProcessEntity.ppid</a></td>
+	<td class="summary">parent process ID</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ProcessEntity.bitness">ProcessEntity.bitness</a></td>
+	<td class="summary">process bitness</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ProcessEntity.backingFile">ProcessEntity.backingFile</a></td>
+	<td class="summary"><a href="../classes/FileEntity.html#">FileEntity</a> of the process main executable</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ProcessEntity.commandLine">ProcessEntity.commandLine</a></td>
+	<td class="summary">command line</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ProcessEntity.createTime">ProcessEntity.createTime</a></td>
+	<td class="summary">process create time</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ProcessEntity.user">ProcessEntity.user</a></td>
+	<td class="summary">user</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ProcessEntity.domain">ProcessEntity.domain</a></td>
+	<td class="summary">domain</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ProcessEntity.integrityLevel">ProcessEntity.integrityLevel</a></td>
+	<td class="summary">integrity level of the process</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ProcessEntity.policies">ProcessEntity.policies</a></td>
+	<td class="summary">process policies statuses</td>
+	</tr>
+</table>
+<h2><a href="#Constructors">Constructors </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#ProcessEntity.fromPid">ProcessEntity.fromPid (pid)</a></td>
+	<td class="summary">Create <a href="../classes/ProcessEntity.html#">ProcessEntity</a> from PID</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ProcessEntity.fromHandle">ProcessEntity.fromHandle (handle)</a></td>
+	<td class="summary">Create <a href="../classes/ProcessEntity.html#">ProcessEntity</a> from file handle</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ProcessEntity.fromCurrent">ProcessEntity.fromCurrent ()</a></td>
+	<td class="summary">Create <a href="../classes/ProcessEntity.html#">ProcessEntity</a> for the current prorcess</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Object_fields"></a>Object fields </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "ProcessEntity.eid"></a>
+    <strong>ProcessEntity.eid</strong>
+    </dt>
+    <dd>
+    entity ID
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ProcessEntity.pid"></a>
+    <strong>ProcessEntity.pid</strong>
+    </dt>
+    <dd>
+    process ID
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ProcessEntity.ppid"></a>
+    <strong>ProcessEntity.ppid</strong>
+    </dt>
+    <dd>
+    parent process ID
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ProcessEntity.bitness"></a>
+    <strong>ProcessEntity.bitness</strong>
+    </dt>
+    <dd>
+    process bitness
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ProcessEntity.backingFile"></a>
+    <strong>ProcessEntity.backingFile</strong>
+    </dt>
+    <dd>
+    <a href="../classes/FileEntity.html#">FileEntity</a> of the process main executable
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ProcessEntity.commandLine"></a>
+    <strong>ProcessEntity.commandLine</strong>
+    </dt>
+    <dd>
+    command line
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ProcessEntity.createTime"></a>
+    <strong>ProcessEntity.createTime</strong>
+    </dt>
+    <dd>
+    process create time
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ProcessEntity.user"></a>
+    <strong>ProcessEntity.user</strong>
+    </dt>
+    <dd>
+    user
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ProcessEntity.domain"></a>
+    <strong>ProcessEntity.domain</strong>
+    </dt>
+    <dd>
+    domain
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ProcessEntity.integrityLevel"></a>
+    <strong>ProcessEntity.integrityLevel</strong>
+    </dt>
+    <dd>
+    integrity level of the process
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ProcessEntity.policies"></a>
+    <strong>ProcessEntity.policies</strong>
+    </dt>
+    <dd>
+    process policies statuses
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">dep</span>
+        is DEP enabled
+        </li>
+        <li><span class="parameter">alr</span>
+        is ASLR enabled
+        </li>
+        <li><span class="parameter">prohibitDynamicCode</span>
+        is dynamic code prohibited
+        </li>
+        <li><span class="parameter">binarySignature</span>
+        status of loaded images sign validation
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Constructors"></a>Constructors </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "ProcessEntity.fromPid"></a>
+    <strong>ProcessEntity.fromPid (pid)</strong>
+    </dt>
+    <dd>
+    Create <a href="../classes/ProcessEntity.html#">ProcessEntity</a> from PID
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pid</span>
+         process ID
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/ProcessEntity.html#">ProcessEntity</a> object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ProcessEntity.fromHandle"></a>
+    <strong>ProcessEntity.fromHandle (handle)</strong>
+    </dt>
+    <dd>
+    Create <a href="../classes/ProcessEntity.html#">ProcessEntity</a> from file handle
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">handle</span>
+         opened handle to the process
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/ProcessEntity.html#">ProcessEntity</a> object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ProcessEntity.fromCurrent"></a>
+    <strong>ProcessEntity.fromCurrent ()</strong>
+    </dt>
+    <dd>
+    Create <a href="../classes/ProcessEntity.html#">ProcessEntity</a> for the current prorcess
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/ProcessEntity.html#">ProcessEntity</a> object
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2020-04-18 12:18:07 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

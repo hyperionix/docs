@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>hp-sysapi reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>hp-sysapi</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/cert.html">cert</a></li>
+  <li><a href="../modules/path.html">path</a></li>
+  <li><a href="../modules/fs.html">fs</a></li>
+  <li><a href="../modules/time.html">time</a></li>
+  <li><a href="../modules/bytebuf.html">bytebuf</a></li>
+  <li><a href="../modules/globals.html">globals</a></li>
+  <li><strong>stringify</strong></li>
+</ul>
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Crypto.html">Crypto</a></li>
+  <li><a href="../classes/CryptoHash.html">CryptoHash</a></li>
+  <li><a href="../classes/File.html">File</a></li>
+  <li><a href="../classes/FileResources.html">FileResources</a></li>
+  <li><a href="../classes/Process.html">Process</a></li>
+  <li><a href="../classes/RegKey.html">RegKey</a></li>
+  <li><a href="../classes/ServiceManager.html">ServiceManager</a></li>
+  <li><a href="../classes/Service.html">Service</a></li>
+  <li><a href="../classes/Sid.html">Sid</a></li>
+  <li><a href="../classes/Thread.html">Thread</a></li>
+  <li><a href="../classes/Token.html">Token</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>stringify</code></h1>
+<p>Stringify utilities</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#StringifyTableStart">StringifyTableStart (name[, trimStart[, trimEnd]])</a></td>
+	<td class="summary">Function marks start of a stringify table values.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#StringifyTableEnd">StringifyTableEnd ()</a></td>
+	<td class="summary">Function ends stringify table values previously started with <a href="../modules/stringify.html#StringifyTableStart">StringifyTableStart</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#stringify.getTable">stringify.getTable (name)</a></td>
+	<td class="summary">Return stringify table with name.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#stringify.byteBuffer">stringify.byteBuffer (buffer, size)</a></td>
+	<td class="summary">Stringify a byte buffer.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#stringify.mask">stringify.mask (mask, tableOrName)</a></td>
+	<td class="summary">Stringify a bit mask</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#stringify.value">stringify.value (value, tableOrName)</a></td>
+	<td class="summary">Stringify a value</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "StringifyTableStart"></a>
+    <strong>StringifyTableStart (name[, trimStart[, trimEnd]])</strong>
+    </dt>
+    <dd>
+    Function marks start of a stringify table values.
+ Call this function before defining variables you want to stringify @see a *-windef.lua file
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+         name of the table
+        </li>
+        <li><span class="parameter">trimStart</span>
+         symbols to trim from start
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">trimEnd</span>
+         symbols to trim from end
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">StringifyTableStart(<span class="string">"MY_TABLE"</span>, <span class="string">"FOO_"</span>, <span class="string">"_BAR"</span>)
+FOO_VALUE_1_BAR = <span class="number">1</span>
+FOO_VALUE_2_BAR = <span class="number">2</span>
+FOO_VALUE_3_BAR = <span class="number">3</span>
+StringifyTableEnd()
+..
+<span class="global">print</span>(stringify.value(<span class="number">1</span>, <span class="string">"MY_TABLE"</span>)) <span class="comment">-- will print "VALUE_1"</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "StringifyTableEnd"></a>
+    <strong>StringifyTableEnd ()</strong>
+    </dt>
+    <dd>
+    Function ends stringify table values previously started with <a href="../modules/stringify.html#StringifyTableStart">StringifyTableStart</a>.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "stringify.getTable"></a>
+    <strong>stringify.getTable (name)</strong>
+    </dt>
+    <dd>
+    Return stringify table with name. </p>
+
+<p> The table should be created with <a href="../modules/stringify.html#StringifyTableStart">StringifyTableStart</a>. Its better to cache the table and pass
+ it into <a href="../modules/stringify.html#stringify.mask">stringify.mask</a> or <a href="../modules/stringify.html#stringify.value">stringify.value</a> instead table name to increase performance a little bit.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+         name of the table
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "stringify.byteBuffer"></a>
+    <strong>stringify.byteBuffer (buffer, size)</strong>
+    </dt>
+    <dd>
+    Stringify a byte buffer.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">buffer</span>
+         buffer
+        </li>
+        <li><span class="parameter">size</span>
+         size of the buffer
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string representation of the buffer
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "stringify.mask"></a>
+    <strong>stringify.mask (mask, tableOrName)</strong>
+    </dt>
+    <dd>
+    Stringify a bit mask
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">mask</span>
+         bit mask to stringify
+        </li>
+        <li><span class="parameter">tableOrName</span>
+         could be stringify table or name of the table created with <a href="../modules/stringify.html#StringifyTableStart">StringifyTableStart</a>
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string representation of the bit mask
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "stringify.value"></a>
+    <strong>stringify.value (value, tableOrName)</strong>
+    </dt>
+    <dd>
+    Stringify a value
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+         value to stringify
+        </li>
+        <li><span class="parameter">tableOrName</span>
+         could be stringify table or name of the table created with <a href="../modules/stringify.html#StringifyTableStart">StringifyTableStart</a>
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string representation of the value
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2020-04-18 12:17:11 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

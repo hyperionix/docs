@@ -36,16 +36,6 @@
 </ul>
 
 
-<h2>Modules</h2>
-<ul class="nowrap">
-  <li><a href="../modules/cert.html">cert</a></li>
-  <li><strong>path</strong></li>
-  <li><a href="../modules/fs.html">fs</a></li>
-  <li><a href="../modules/time.html">time</a></li>
-  <li><a href="../modules/bytebuf.html">bytebuf</a></li>
-  <li><a href="../modules/globals.html">globals</a></li>
-  <li><a href="../modules/stringify.html">stringify</a></li>
-</ul>
 <h2>Classes</h2>
 <ul class="nowrap">
   <li><a href="../classes/Crypto.html">Crypto</a></li>
@@ -57,16 +47,26 @@
   <li><a href="../classes/ServiceManager.html">ServiceManager</a></li>
   <li><a href="../classes/Service.html">Service</a></li>
   <li><a href="../classes/Sid.html">Sid</a></li>
-  <li><a href="../classes/Thread.html">Thread</a></li>
+  <li><strong>Thread</strong></li>
   <li><a href="../classes/Token.html">Token</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/cert.html">cert</a></li>
+  <li><a href="../modules/path.html">path</a></li>
+  <li><a href="../modules/fs.html">fs</a></li>
+  <li><a href="../modules/time.html">time</a></li>
+  <li><a href="../modules/bytebuf.html">bytebuf</a></li>
+  <li><a href="../modules/globals.html">globals</a></li>
+  <li><a href="../modules/stringify.html">stringify</a></li>
 </ul>
 
 </div>
 
 <div id="content">
 
-<h1>Module <code>path</code></h1>
-<p>Filesystem path operations</p>
+<h1>Class <code>Thread</code></h1>
+<p>Class describes system Thread object</p>
 <p>
 
 </p>
@@ -75,8 +75,12 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#path.split">path.split (fullPath)</a></td>
-	<td class="summary">Split full path into the path components</td>
+	<td class="name" nowrap><a href="#Thread.fromHandle">Thread.fromHandle (handle)</a></td>
+	<td class="summary">Create Thread Object from handle</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Thread:close">Thread:close ()</a></td>
+	<td class="summary">Close thread handle</td>
 	</tr>
 </table>
 
@@ -88,25 +92,40 @@
 
     <dl class="function">
     <dt>
-    <a name = "path.split"></a>
-    <strong>path.split (fullPath)</strong>
+    <a name = "Thread.fromHandle"></a>
+    <strong>Thread.fromHandle (handle)</strong>
     </dt>
     <dd>
-    Split full path into the path components
+    Create Thread Object from handle
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">fullPath</span>
-         full path of a FS target
+        <li><span class="parameter">handle</span>
+            <span class="types"><span class="type">int</span></span>
+         handle of the thread
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        <code>{drive, dir, basename, ext}</code> a table with the path components
+        <a href="../classes/Thread.html#">Thread</a> object
     </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Thread:close"></a>
+    <strong>Thread:close ()</strong>
+    </dt>
+    <dd>
+    Close thread handle
+
+
+
 
 
 

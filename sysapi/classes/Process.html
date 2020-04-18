@@ -42,18 +42,24 @@
   <li><a href="../classes/Crypto.html">Crypto</a></li>
   <li><a href="../classes/CryptoHash.html">CryptoHash</a></li>
   <li><a href="../classes/File.html">File</a></li>
-  <li><a href="../classes/FileVersion.html">FileVersion</a></li>
+  <li><a href="../classes/FileResources.html">FileResources</a></li>
   <li><strong>Process</strong></li>
   <li><a href="../classes/RegKey.html">RegKey</a></li>
   <li><a href="../classes/ServiceManager.html">ServiceManager</a></li>
   <li><a href="../classes/Service.html">Service</a></li>
+  <li><a href="../classes/Sid.html">Sid</a></li>
+  <li><a href="../classes/Thread.html">Thread</a></li>
   <li><a href="../classes/Token.html">Token</a></li>
 </ul>
 <h2>Modules</h2>
 <ul class="nowrap">
-  <li><a href="../modules/time.html">time</a></li>
   <li><a href="../modules/cert.html">cert</a></li>
   <li><a href="../modules/path.html">path</a></li>
+  <li><a href="../modules/fs.html">fs</a></li>
+  <li><a href="../modules/time.html">time</a></li>
+  <li><a href="../modules/bytebuf.html">bytebuf</a></li>
+  <li><a href="../modules/globals.html">globals</a></li>
+  <li><a href="../modules/stringify.html">stringify</a></li>
 </ul>
 
 </div>
@@ -62,9 +68,7 @@
 
 <h1>Class <code>Process</code></h1>
 <p>Class describes system Process object</p>
-<p>
-
-</p>
+<p> Most of the fields are lazy evaluated</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
@@ -86,12 +90,12 @@
 	<td class="summary">Create Process Object from handle</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Process:getPolicy">Process:getPolicy (policyType, structType)</a></td>
-	<td class="summary">Get process policy</td>
+	<td class="name" nowrap><a href="#Process:queryInfo">Process:queryInfo (infoClass, ctype, ctypePtr[, assumedSize=sizeof(ctype)])</a></td>
+	<td class="summary">General routine to get infomration about the process</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Process:getBackingFile">Process:getBackingFile ()</a></td>
-	<td class="summary">Get then process backing file path</td>
+	<td class="name" nowrap><a href="#Process:createThread">Process:createThread (funcAddr, paramAddr)</a></td>
+	<td class="summary">Create thread in the target process</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Process:memAlloc">Process:memAlloc (size[, protect[, allocType]])</a></td>
@@ -118,18 +122,6 @@
 	<td class="summary">Query information about a memory region</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Process:queryInfo">Process:queryInfo (infoClass, typeName)</a></td>
-	<td class="summary">General routine to get infomration about the process</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Process:getToken">Process:getToken ()</a></td>
-	<td class="summary">Get the process token</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Process:getCreateTime">Process:getCreateTime ()</a></td>
-	<td class="summary">Get the process create time UNIX timestamp</td>
-	</tr>
-	<tr>
 	<td class="name" nowrap><a href="#Process:close">Process:close ()</a></td>
 	<td class="summary">Close process handle</td>
 	</tr>
@@ -141,8 +133,48 @@
 <h2><a href="#Fields">Fields</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#Process.threadHandle">Process.threadHandle</a></td>
-	<td class="summary">initial thread handle for newly created process</td>
+	<td class="name" nowrap><a href="#Process.backingFile">Process.backingFile</a></td>
+	<td class="summary">main executable path</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process.bitness">Process.bitness</a></td>
+	<td class="summary">bitness (32 or 64)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process.commandLine">Process.commandLine</a></td>
+	<td class="summary">command line</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process.createTime">Process.createTime</a></td>
+	<td class="summary">create time</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process.pid">Process.pid</a></td>
+	<td class="summary">process ID</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process.policyAslr">Process.policyAslr</a></td>
+	<td class="summary">ASLR enabled flag</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process.policyBinarySignature">Process.policyBinarySignature</a></td>
+	<td class="summary">loading of images depending on the signatures for the image status</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process.policyDep">Process.policyDep</a></td>
+	<td class="summary">DEP enabled flag</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process.policyProhibitDynamicCode">Process.policyProhibitDynamicCode</a></td>
+	<td class="summary">restricting dynamic code generation and modification flag</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process.ppid">Process.ppid</a></td>
+	<td class="summary">parent process ID</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process.token">Process.token</a></td>
+	<td class="summary"><a href="../classes/Token.html#">Token</a> objectof the process</td>
 	</tr>
 </table>
 
@@ -151,7 +183,7 @@
 
 
     <h2 class="section-header "><a name="Functions"></a>Functions</h2>
-    Methods
+
     <dl class="function">
     <dt>
     <a name = "Process.run"></a>
@@ -268,29 +300,34 @@
 
 </dd>
     <dt>
-    <a name = "Process:getPolicy"></a>
-    <strong>Process:getPolicy (policyType, structType)</strong>
+    <a name = "Process:queryInfo"></a>
+    <strong>Process:queryInfo (infoClass, ctype, ctypePtr[, assumedSize=sizeof(ctype)])</strong>
     </dt>
     <dd>
-    Get process policy
+    General routine to get infomration about the process
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">policyType</span>
-            <span class="types"><span class="type">int</span></span>
-         type of policy
+        <li><span class="parameter">infoClass</span>
+         <code>PROCESSINFOCLASS</code>
         </li>
-        <li><span class="parameter">structType</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         name of struct of policy type
+        <li><span class="parameter">ctype</span>
+         C type returned by <code>ffi.typeof()</code>
+        </li>
+        <li><span class="parameter">ctypePtr</span>
+         pointer to the type
+        </li>
+        <li><span class="parameter">assumedSize</span>
+         assumed size of the query info output
+         (<em>default</em> sizeof(ctype))
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        typed policy data buffer depends on <code>structType</code> or <code>nil</code>
+        typed pointer depends on <code>typeName</code> or <code>nil</code>
     </ol>
 
 
@@ -298,18 +335,27 @@
 
 </dd>
     <dt>
-    <a name = "Process:getBackingFile"></a>
-    <strong>Process:getBackingFile ()</strong>
+    <a name = "Process:createThread"></a>
+    <strong>Process:createThread (funcAddr, paramAddr)</strong>
     </dt>
     <dd>
-    Get then process backing file path
+    Create thread in the target process
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">funcAddr</span>
+         address of the function for thread thread
+        </li>
+        <li><span class="parameter">paramAddr</span>
+         address of the argument for the thread
+        </li>
+    </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        the process backing file path or <code>nil</code>
+        <a href="../classes/Thread.html#">Thread</a> object
     </ol>
 
 
@@ -504,68 +550,6 @@
 
 </dd>
     <dt>
-    <a name = "Process:queryInfo"></a>
-    <strong>Process:queryInfo (infoClass, typeName)</strong>
-    </dt>
-    <dd>
-    General routine to get infomration about the process
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">infoClass</span>
-         <code>PROCESSINFOCLASS</code>
-        </li>
-        <li><span class="parameter">typeName</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         name of type corresponding to <code>infoClass</code>
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        typed pointer depends on <code>typeName</code> or <code>nil</code>
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Process:getToken"></a>
-    <strong>Process:getToken ()</strong>
-    </dt>
-    <dd>
-    Get the process token
-
-
-
-    <h3>Returns:</h3>
-    <ol>
-
-        <a href="../classes/Token.html#">Token</a> object or <code>nil</code>
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Process:getCreateTime"></a>
-    <strong>Process:getCreateTime ()</strong>
-    </dt>
-    <dd>
-    Get the process create time UNIX timestamp
-
-
-
-
-
-
-
-</dd>
-    <dt>
     <a name = "Process:close"></a>
     <strong>Process:close ()</strong>
     </dt>
@@ -606,11 +590,151 @@
 
     <dl class="function">
     <dt>
-    <a name = "Process.threadHandle"></a>
-    <strong>Process.threadHandle</strong>
+    <a name = "Process.backingFile"></a>
+    <strong>Process.backingFile</strong>
     </dt>
     <dd>
-    initial thread handle for newly created process
+    main executable path
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.bitness"></a>
+    <strong>Process.bitness</strong>
+    </dt>
+    <dd>
+    bitness (32 or 64)
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.commandLine"></a>
+    <strong>Process.commandLine</strong>
+    </dt>
+    <dd>
+    command line
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.createTime"></a>
+    <strong>Process.createTime</strong>
+    </dt>
+    <dd>
+    create time
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.pid"></a>
+    <strong>Process.pid</strong>
+    </dt>
+    <dd>
+    process ID
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.policyAslr"></a>
+    <strong>Process.policyAslr</strong>
+    </dt>
+    <dd>
+    ASLR enabled flag
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.policyBinarySignature"></a>
+    <strong>Process.policyBinarySignature</strong>
+    </dt>
+    <dd>
+    loading of images depending on the signatures for the image status
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.policyDep"></a>
+    <strong>Process.policyDep</strong>
+    </dt>
+    <dd>
+    DEP enabled flag
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.policyProhibitDynamicCode"></a>
+    <strong>Process.policyProhibitDynamicCode</strong>
+    </dt>
+    <dd>
+    restricting dynamic code generation and modification flag
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.ppid"></a>
+    <strong>Process.ppid</strong>
+    </dt>
+    <dd>
+    parent process ID
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.token"></a>
+    <strong>Process.token</strong>
+    </dt>
+    <dd>
+    <a href="../classes/Token.html#">Token</a> objectof the process
 
 
 
@@ -626,7 +750,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2020-04-09 12:45:15 </i>
+<i style="float:right;">Last updated 2020-04-18 12:17:11 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

@@ -39,10 +39,10 @@
 <h2>Modules</h2>
 <ul class="nowrap">
   <li><a href="../modules/cert.html">cert</a></li>
-  <li><strong>path</strong></li>
+  <li><a href="../modules/path.html">path</a></li>
   <li><a href="../modules/fs.html">fs</a></li>
   <li><a href="../modules/time.html">time</a></li>
-  <li><a href="../modules/bytebuf.html">bytebuf</a></li>
+  <li><strong>bytebuf</strong></li>
   <li><a href="../modules/globals.html">globals</a></li>
   <li><a href="../modules/stringify.html">stringify</a></li>
 </ul>
@@ -65,8 +65,8 @@
 
 <div id="content">
 
-<h1>Module <code>path</code></h1>
-<p>Filesystem path operations</p>
+<h1>Module <code>bytebuf</code></h1>
+<p>Function to create a byte buffer.</p>
 <p>
 
 </p>
@@ -75,8 +75,8 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#path.split">path.split (fullPath)</a></td>
-	<td class="summary">Split full path into the path components</td>
+	<td class="name" nowrap><a href="#bytebuf.create">bytebuf.create (s)</a></td>
+	<td class="summary">Creates byte buffer.</td>
 	</tr>
 </table>
 
@@ -88,28 +88,33 @@
 
     <dl class="function">
     <dt>
-    <a name = "path.split"></a>
-    <strong>path.split (fullPath)</strong>
+    <a name = "bytebuf.create"></a>
+    <strong>bytebuf.create (s)</strong>
     </dt>
     <dd>
-    Split full path into the path components
+    Creates byte buffer.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">fullPath</span>
-         full path of a FS target
+        <li><span class="parameter">s</span>
+         a sequence of bytes in string
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        <code>{drive, dir, basename, ext}</code> a table with the path components
+        byte buffer
     </ol>
 
 
 
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> bytebuf = <span class="global">require</span> <span class="string">"bytebuf"</span>
+<span class="keyword">local</span> data = bytebuf.create(<span class="string">[[\x12\x34\x56\x78]]</span>)</pre>
+    </ul>
 
 </dd>
 </dl>

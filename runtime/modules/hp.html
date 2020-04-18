@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>hpapi reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>hpapi</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Entities">Entities </a></li>
+<li><a href="#Modules">Modules </a></li>
+<li><a href="#Fields">Fields </a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><strong>hp</strong></li>
+</ul>
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/FileEntity.html">FileEntity</a></li>
+  <li><a href="../classes/PathEntity.html">PathEntity</a></li>
+  <li><a href="../classes/ProcessEntity.html">ProcessEntity</a></li>
+  <li><a href="../classes/Hook.html">Hook</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>hp</code></h1>
+<p>hp namespace</p>
+<p> The namespace accessible everywhere</p>
+
+
+<h2><a href="#Entities">Entities </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#hp.PathEntity">hp.PathEntity</a></td>
+	<td class="summary"><a href="../classes/PathEntity.html#">PathEntity</a></td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#hp.FileEntity">hp.FileEntity</a></td>
+	<td class="summary"><a href="../classes/FileEntity.html#">FileEntity</a></td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#hp.ProcessEntity">hp.ProcessEntity</a></td>
+	<td class="summary"><a href="../classes/ProcessEntity.html#">ProcessEntity</a></td>
+	</tr>
+</table>
+<h2><a href="#Modules">Modules </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#hp.underscore">hp.underscore</a></td>
+	<td class="summary"><a href="https://luafun.github.io/">underscore</a> library (will probably replaced with <a href="https://luafun.github.io/">fun</a>).</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#hp.version">hp.version</a></td>
+	<td class="summary"><a href="http://kong.github.io/version.lua/">version</a> library.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#hp.logger">hp.logger</a></td>
+	<td class="summary">logger module to create loggers (see usage below)</td>
+	</tr>
+</table>
+<h2><a href="#Fields">Fields </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#hp.agent.id">hp.agent.id</a></td>
+	<td class="summary">agent UUID</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#hp.agent.name">hp.agent.name</a></td>
+	<td class="summary">agent name</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#hp.engine">hp.engine</a></td>
+	<td class="summary">wgere the script executed (<code>&quot;sensor&quot;</code> - inside a process , <code>&quot;service&quot;</code> - inside Hyperionix Service, <code>&quot;hdk&quot;</code> - HDK)</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Entities"></a>Entities </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "hp.PathEntity"></a>
+    <strong>hp.PathEntity</strong>
+    </dt>
+    <dd>
+    <a href="../classes/PathEntity.html#">PathEntity</a>
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "hp.FileEntity"></a>
+    <strong>hp.FileEntity</strong>
+    </dt>
+    <dd>
+    <a href="../classes/FileEntity.html#">FileEntity</a>
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "hp.ProcessEntity"></a>
+    <strong>hp.ProcessEntity</strong>
+    </dt>
+    <dd>
+    <a href="../classes/ProcessEntity.html#">ProcessEntity</a>
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Modules"></a>Modules </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "hp.underscore"></a>
+    <strong>hp.underscore</strong>
+    </dt>
+    <dd>
+    <a href="https://luafun.github.io/">underscore</a> library (will probably replaced with <a href="https://luafun.github.io/">fun</a>).
+ Used for function style programming
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "hp.version"></a>
+    <strong>hp.version</strong>
+    </dt>
+    <dd>
+    <a href="http://kong.github.io/version.lua/">version</a> library.
+ Used to compare numeric file versions
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "hp.logger"></a>
+    <strong>hp.logger</strong>
+    </dt>
+    <dd>
+    logger module to create loggers (see usage below)
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> LOG = hp.logger:new()
+LOG:dbg(<span class="string">"debug"</span>)
+LOG:wrn(<span class="string">"warning"</span>)
+LOG:err(<span class="string">"error"</span>)
+LOG:pp({a = <span class="number">5</span>}) <span class="comment">-- print tables
+</span>LOG:pp({a = <span class="number">5</span>}, <span class="number">1</span>) <span class="comment">-- print tables with depth</span></pre>
+    </ul>
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Fields"></a>Fields </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "hp.agent.id"></a>
+    <strong>hp.agent.id</strong>
+    </dt>
+    <dd>
+    agent UUID
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "hp.agent.name"></a>
+    <strong>hp.agent.name</strong>
+    </dt>
+    <dd>
+    agent name
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "hp.engine"></a>
+    <strong>hp.engine</strong>
+    </dt>
+    <dd>
+    wgere the script executed (<code>&quot;sensor&quot;</code> - inside a process , <code>&quot;service&quot;</code> - inside Hyperionix Service, <code>&quot;hdk&quot;</code> - HDK)
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2020-04-18 12:18:07 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

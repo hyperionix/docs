@@ -1,0 +1,323 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>hpapi reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>hpapi</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Object_fields">Object fields </a></li>
+<li><a href="#Constructors">Constructors </a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><strong>FileEntity</strong></li>
+  <li><a href="../classes/PathEntity.html">PathEntity</a></li>
+  <li><a href="../classes/ProcessEntity.html">ProcessEntity</a></li>
+  <li><a href="../classes/Hook.html">Hook</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/hp.html">hp</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>FileEntity</code></h1>
+<p>Class FileEntity describes file entity</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Object_fields">Object fields </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#FileEntity.eid">FileEntity.eid</a></td>
+	<td class="summary">Entity ID</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FileEntity.path">FileEntity.path</a></td>
+	<td class="summary"><a href="../classes/PathEntity.html#">PathEntity</a> for the file</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FileEntity.size">FileEntity.size</a></td>
+	<td class="summary">file size</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FileEntity.attributes">FileEntity.attributes</a></td>
+	<td class="summary">file attributes</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FileEntity.times">FileEntity.times</a></td>
+	<td class="summary">file time values</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FileEntity.certificate">FileEntity.certificate</a></td>
+	<td class="summary">file certificate information</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FileEntity.resources">FileEntity.resources</a></td>
+	<td class="summary">file resources</td>
+	</tr>
+</table>
+<h2><a href="#Constructors">Constructors </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#FileEntity.fromHandle">FileEntity.fromHandle (handle)</a></td>
+	<td class="summary">Create <a href="../classes/FileEntity.html#">FileEntity</a> from file handle</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FileEntity.fromPath">FileEntity.fromPath (path)</a></td>
+	<td class="summary">Create <a href="../classes/FileEntity.html#">FileEntity</a> from its path</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Object_fields"></a>Object fields </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "FileEntity.eid"></a>
+    <strong>FileEntity.eid</strong>
+    </dt>
+    <dd>
+    Entity ID
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FileEntity.path"></a>
+    <strong>FileEntity.path</strong>
+    </dt>
+    <dd>
+    <a href="../classes/PathEntity.html#">PathEntity</a> for the file
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FileEntity.size"></a>
+    <strong>FileEntity.size</strong>
+    </dt>
+    <dd>
+    file size
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FileEntity.attributes"></a>
+    <strong>FileEntity.attributes</strong>
+    </dt>
+    <dd>
+    file attributes
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FileEntity.times"></a>
+    <strong>FileEntity.times</strong>
+    </dt>
+    <dd>
+    file time values
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">change</span>
+        file last change time
+        </li>
+        <li><span class="parameter">write</span>
+        file last write time
+        </li>
+        <li><span class="parameter">read</span>
+        file last access time
+        </li>
+        <li><span class="parameter">create</span>
+        file create time
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FileEntity.certificate"></a>
+    <strong>FileEntity.certificate</strong>
+    </dt>
+    <dd>
+    file certificate information
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">status</span>
+        file sign status
+        </li>
+        <li><span class="parameter">signers</span>
+        list of signers
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FileEntity.resources"></a>
+    <strong>FileEntity.resources</strong>
+    </dt>
+    <dd>
+    file resources
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">version</span>
+
+
+
+        </li>
+        <li><span class="parameter">description</span>
+
+
+
+        </li>
+        <li><span class="parameter">company</span>
+
+
+
+        </li>
+        <li><span class="parameter">originalFileName</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Constructors"></a>Constructors </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "FileEntity.fromHandle"></a>
+    <strong>FileEntity.fromHandle (handle)</strong>
+    </dt>
+    <dd>
+    Create <a href="../classes/FileEntity.html#">FileEntity</a> from file handle
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">handle</span>
+         opened handle to the file
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/FileEntity.html#">FileEntity</a> object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FileEntity.fromPath"></a>
+    <strong>FileEntity.fromPath (path)</strong>
+    </dt>
+    <dd>
+    Create <a href="../classes/FileEntity.html#">FileEntity</a> from its path
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">path</span>
+         relative or absolute path to file
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/FileEntity.html#">FileEntity</a> object
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2020-04-18 12:18:07 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

@@ -36,16 +36,6 @@
 </ul>
 
 
-<h2>Modules</h2>
-<ul class="nowrap">
-  <li><a href="../modules/cert.html">cert</a></li>
-  <li><strong>path</strong></li>
-  <li><a href="../modules/fs.html">fs</a></li>
-  <li><a href="../modules/time.html">time</a></li>
-  <li><a href="../modules/bytebuf.html">bytebuf</a></li>
-  <li><a href="../modules/globals.html">globals</a></li>
-  <li><a href="../modules/stringify.html">stringify</a></li>
-</ul>
 <h2>Classes</h2>
 <ul class="nowrap">
   <li><a href="../classes/Crypto.html">Crypto</a></li>
@@ -56,17 +46,27 @@
   <li><a href="../classes/RegKey.html">RegKey</a></li>
   <li><a href="../classes/ServiceManager.html">ServiceManager</a></li>
   <li><a href="../classes/Service.html">Service</a></li>
-  <li><a href="../classes/Sid.html">Sid</a></li>
+  <li><strong>Sid</strong></li>
   <li><a href="../classes/Thread.html">Thread</a></li>
   <li><a href="../classes/Token.html">Token</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/cert.html">cert</a></li>
+  <li><a href="../modules/path.html">path</a></li>
+  <li><a href="../modules/fs.html">fs</a></li>
+  <li><a href="../modules/time.html">time</a></li>
+  <li><a href="../modules/bytebuf.html">bytebuf</a></li>
+  <li><a href="../modules/globals.html">globals</a></li>
+  <li><a href="../modules/stringify.html">stringify</a></li>
 </ul>
 
 </div>
 
 <div id="content">
 
-<h1>Module <code>path</code></h1>
-<p>Filesystem path operations</p>
+<h1>Class <code>Sid</code></h1>
+<p>Class describes system SID object</p>
 <p>
 
 </p>
@@ -75,8 +75,16 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#path.split">path.split (fullPath)</a></td>
-	<td class="summary">Split full path into the path components</td>
+	<td class="name" nowrap><a href="#Sid.init">Sid.init (sid)</a></td>
+	<td class="summary">Initialize Sid object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sid:toString">Sid:toString ()</a></td>
+	<td class="summary">Convert Sid object to string</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sid:getDomainAndUsername">Sid:getDomainAndUsername ()</a></td>
+	<td class="summary">Get domain and username from Sid</td>
 	</tr>
 </table>
 
@@ -88,24 +96,64 @@
 
     <dl class="function">
     <dt>
-    <a name = "path.split"></a>
-    <strong>path.split (fullPath)</strong>
+    <a name = "Sid.init"></a>
+    <strong>Sid.init (sid)</strong>
     </dt>
     <dd>
-    Split full path into the path components
+    Initialize Sid object
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">fullPath</span>
-         full path of a FS target
+        <li><span class="parameter">sid</span>
+         system SID pointer
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        <code>{drive, dir, basename, ext}</code> a table with the path components
+        <a href="../classes/Sid.html#">Sid</a> object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sid:toString"></a>
+    <strong>Sid:toString ()</strong>
+    </dt>
+    <dd>
+    Convert Sid object to string
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string representation of Sid
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sid:getDomainAndUsername"></a>
+    <strong>Sid:getDomainAndUsername ()</strong>
+    </dt>
+    <dd>
+    Get domain and username from Sid
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+        domain</li>
+        <li>
+        username</li>
     </ol>
 
 
