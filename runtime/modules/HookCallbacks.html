@@ -1,0 +1,362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>hpapi reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>hpapi</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Callbacks">Callbacks </a></li>
+<li><a href="#Return_Tables">Return Tables </a></li>
+<li><a href="#Examples">Examples </a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><strong>HookCallbacks</strong></li>
+  <li><a href="../modules/hp.html">hp</a></li>
+</ul>
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/FileEntity.html">FileEntity</a></li>
+  <li><a href="../classes/PathEntity.html">PathEntity</a></li>
+  <li><a href="../classes/ProcessEntity.html">ProcessEntity</a></li>
+  <li><a href="../classes/ExecutionContext.html">ExecutionContext</a></li>
+  <li><a href="../classes/Hook.html">Hook</a></li>
+  <li><a href="../classes/Probe.html">Probe</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>HookCallbacks</code></h1>
+<p>Documentation for hook callbacks used in <a href="../classes/Hook.html#">Hook</a> and <a href="../classes/Probe.html#">Probe</a>.</p>
+<p> The callbacks are main places where developers can describe logic of hook processing.
+ They are used both in <a href="../classes/Hook.html#">Hook</a> and <a href="../classes/Probe.html#">Probe</a>.
+ The callbacks has shared environment and it means that if developer declared non-local variable inside <a href="../modules/HookCallbacks.html#onEntry">onEntry</a>
+ it should be also valid inside <a href="../modules/HookCallbacks.html#onExit">onExit</a> and <a href="../modules/HookCallbacks.html#onBlock">onBlock</a> callbacks in the single hook call.</p>
+
+<p> Inside the callbacks could be used all utils from <a href="../modules/hp.html#">hp</a> module and all <a href="https://docs.hyperionix.com/sysapi/index.html">hyp-sysapi</a> functions.
+ To make <strong>hyp-sysapi</strong> allowed in your package you should write</p>
+
+
+<pre>
+<span class="global">setfenv</span>(<span class="number">1</span>, <span class="global">require</span> <span class="string">"sysapi-ns"</span>)
+</pre>
+
+<p> To get more information check packages sources in the <a href="https://github.com/hyperionix/packages">Hyperionix packages repository</a>.</p>
+
+
+<h2><a href="#Callbacks">Callbacks </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#onEntry">onEntry (context)</a></td>
+	<td class="summary">Callback which is executed before hooked function.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#onExit">onExit (context)</a></td>
+	<td class="summary">Callback which is executed after hooked function.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#onBlock">onBlock (context)</a></td>
+	<td class="summary">Callback which is executed if <a href="../modules/HookCallbacks.html#onEntry">onEntry</a> returns <a href="../modules/HookCallbacks.html#EntryReturn">EntryReturn</a> with <code>block</code> set to <code>true</code>.</td>
+	</tr>
+</table>
+<h2><a href="#Return_Tables">Return Tables </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#EntryReturn">EntryReturn</a></td>
+	<td class="summary">Table returned by <a href="../modules/HookCallbacks.html#onEntry">onEntry</a></td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ExitReturn">ExitReturn</a></td>
+	<td class="summary">Table returned by <a href="../modules/HookCallbacks.html#onExit">onExit</a></td>
+	</tr>
+</table>
+<h2><a href="#Examples">Examples </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Hook">Hook</a></td>
+	<td class="summary">Using callbacks in Hook.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Probe">Probe</a></td>
+	<td class="summary">Using callbacks
+ The probe depends from the hook we declared in previous example.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Callbacks"></a>Callbacks </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "onEntry"></a>
+    <strong>onEntry (context)</strong>
+    </dt>
+    <dd>
+    Callback which is executed before hooked function.
+ Typically developers analyze the function input parameters and make a decision if <a href="../modules/HookCallbacks.html#onExit">onExit</a> or <a href="../modules/HookCallbacks.html#onBlock">onBlock</a> should be called. ???s could be generated as well but
+ the more typical case is to generate events in <a href="../modules/HookCallbacks.html#onExit">onExit</a> callback.
+ If the function returns <a href="../modules/HookCallbacks.html#EntryReturn">EntryReturn</a> table the further execution depends on its parameters.
+ It the function returns <code>boolean</code> or <code>nil</code> the value treated as <a href="../modules/HookCallbacks.html#EntryReturn">EntryReturn</a> <code>callExit</code>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">context</span>
+         <a href="../classes/ExecutionContext.html#">ExecutionContext</a> object
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>boolean</code> or <a href="../modules/HookCallbacks.html#EntryReturn">EntryReturn</a>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "onExit"></a>
+    <strong>onExit (context)</strong>
+    </dt>
+    <dd>
+    Callback which is executed after hooked function.
+ Inside the callback developers have access to the function output values and the function return value.
+ Also, they still have access to the values of input parameters.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">context</span>
+         <a href="../classes/ExecutionContext.html#">ExecutionContext</a> object
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../modules/HookCallbacks.html#ExitReturn">ExitReturn</a>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "onBlock"></a>
+    <strong>onBlock (context)</strong>
+    </dt>
+    <dd>
+    Callback which is executed if <a href="../modules/HookCallbacks.html#onEntry">onEntry</a> returns <a href="../modules/HookCallbacks.html#EntryReturn">EntryReturn</a> with <code>block</code> set to <code>true</code>. 
+ Note that developer is responsible to dll all stuff inside <a href="../modules/HookCallbacks.html#onBlock">onBlock</a> to make further code execution correct and safe except stack cleanup. E.g. setting error function status value in <code>eax</code> register.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">context</span>
+         <a href="../classes/ExecutionContext.html#">ExecutionContext</a> object
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Return_Tables"></a>Return Tables </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "EntryReturn"></a>
+    <strong>EntryReturn</strong>
+    </dt>
+    <dd>
+    Table returned by <a href="../modules/HookCallbacks.html#onEntry">onEntry</a>
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">events</span>
+        list of ???s.
+        </li>
+        <li><span class="parameter">callExit</span>
+        <code>true</code> to call <a href="../modules/HookCallbacks.html#onExit">onExit</a> after the function will be executed.
+        </li>
+        <li><span class="parameter">block</span>
+        <code>true</code> to call <a href="../modules/HookCallbacks.html#onBlock">onBlock</a> and don't allow the function execution.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ExitReturn"></a>
+    <strong>ExitReturn</strong>
+    </dt>
+    <dd>
+    Table returned by <a href="../modules/HookCallbacks.html#onExit">onExit</a>
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">events</span>
+        list of ???s.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Examples"></a>Examples </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Hook"></a>
+    <strong>Hook</strong>
+    </dt>
+    <dd>
+    Using callbacks in Hook.
+ It is not typical to use the callbacks in Hook packages but it is possible.
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">Hook {
+ name = <span class="string">"MyFunctionHook"</span>,
+ target = <span class="string">"module!MyFunctionHook"</span>,
+ decl = <span class="string">[[ int MyFunction(int param1, int param2); ]]</span>,
+ <span class="comment">-- context is <a href="../classes/ExecutionContext.html#">ExecutionContext</a> object
+</span> onEntry = <span class="keyword">function</span>(context)
+ <span class="comment">-- doing some stuff...
+</span> <span class="keyword">end</span>,
+ onExit = <span class="keyword">function</span>(context)
+ <span class="comment">-- doing some stuff...
+</span> <span class="keyword">end</span>
+}</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Probe"></a>
+    <strong>Probe</strong>
+    </dt>
+    <dd>
+    Using callbacks
+ The probe depends from the hook we declared in previous example.  Let's add some simple logic.
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">Probe {
+  name = <span class="string">"MyProbe"</span>,
+  hooks = {
+    {
+      name = <span class="string">"MyFunctionHook"</span>,
+      <span class="comment">-- the function is called before <code>module!MyFunctionHook</code> execution
+</span>      onEntry = <span class="keyword">function</span>(context)
+        <span class="comment">-- Inside probe's callbacks developers also have access to the hooked function format parameters
+</span>        <span class="keyword">if</span> context.p.param1 == <span class="number">0</span> <span class="keyword">then</span>
+          <span class="keyword">return</span> <span class="keyword">true</span> <span class="comment">-- onExit callback will be called
+</span>        <span class="keyword">else</span>
+          <span class="comment">-- block the function execution and generate high criticality ???
+</span>          <span class="comment">-- and mark to save it on splunk if it is configured.
+</span>          <span class="keyword">return</span> {
+            block = <span class="keyword">true</span>,
+            events = {
+              Event {
+                name = <span class="string">"MyFunction blocked"</span>,
+                reason = <span class="string">"param1 ~= 0"</span>,
+                criticality = <span class="string">"high"</span>,
+                foo = <span class="string">"bar"</span>
+              }:saveTo(<span class="string">"splunk"</span>)
+            }
+          }
+        <span class="keyword">end</span>
+      <span class="keyword">end</span>,
+      onExit = <span class="keyword">function</span>(context)
+        <span class="global">assert</span>(context.p.param1 == <span class="number">0</span>) <span class="comment">-- we can get here only in this case as stated in onEntry
+</span>        <span class="comment">-- check function return status and generate and event if it is failed and save the event to log file
+</span>        <span class="keyword">if</span> context.r.eax ~= <span class="number">0</span> <span class="keyword">then</span>
+          <span class="keyword">return</span> {
+            events = {
+              Event {
+                name = <span class="string">"MyFunction failed"</span>,
+                status = context.r.eax,
+                criticality = <span class="string">"medium"</span>
+              }:saveTo(<span class="string">"file"</span>)
+            }
+          }
+        <span class="keyword">end</span>
+      <span class="keyword">end</span>,
+      onBlock = <span class="keyword">function</span>(context)
+        <span class="global">assert</span>(context.p.param1 ~= <span class="number">0</span>)
+        context.r.eax = -<span class="number">1</span> <span class="comment">-- assign failure status as we assume that the caller will check it
+</span>      <span class="keyword">end</span>
+    }
+  }
+}</pre>
+    </ul>
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2020-04-19 18:15:07 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
