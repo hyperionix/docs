@@ -2,7 +2,7 @@
 layout: default
 title: ESMs In Depth
 nav_order: 3
-parent: Packages
+parent: Packages Types
 permalink: pages/esm-details
 ---
 

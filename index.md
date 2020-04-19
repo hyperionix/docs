@@ -16,9 +16,9 @@ permalink: /
 
 ## Hyperionix Development Kit
 
-Hyperionix Development Kit (HDK) is a toolset for local development and testing of packages.
+Hyperionix Development Kit (HDK) is a toolset for local development and testing of package. More information could be found [here](hdk).
 
-!!! IMPORTANT !!! Currently you can't have HDK and installed Hyperionix Agent on the same machine.
+NOTE: currently you can't have HDK and installed Hyperionix Agent on the same machine.
 
 ### Installing
 1. Register at <a href="https://admin.hyperionix.com/" target="_blank">Hyperionix Management Console</a>.
@@ -26,20 +26,18 @@ Hyperionix Development Kit (HDK) is a toolset for local development and testing 
 3. Install it on your machine.
 
 ### Initialization
-Note: The path could be different if you changed it on install
+* Install [HDK](hdk).
+* Open cmd or powershell and go to the HDK installation path.
+* Clone packages repository.
+* Verify HDK installation.
 
 ```bat
-:: Initialize HDK
 cd /d %ALLUSERSPROFILE%\Hyperionix\hdk\
-bin\package-verifier --hdk-init
-:: Clone repository with public packages (TODO Fix the path)
-git clone git@github.com:hyperionix/packages-private.git packages/hyperionix
-:: Verify cloned packages
-.\bin\package-verifier --verify all
+git clone git@github.com:hyperionix/packages.git packages/hyperionix/
+.\bin\hdk --hdk-init
+.\bin\hdk --verify all
+.\bin\hdk --run-test all
 ```
-Output
-```bat
-...
-Success: 20, failed: 0
-```
-You are ready to [write your first package](quick-package)
+
+So you are ready to [write your first package](quick-package)
+

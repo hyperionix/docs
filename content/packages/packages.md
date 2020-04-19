@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Packages
+title: Packages Types
 permalink: packages
 has_children: true
 nav_order: 3

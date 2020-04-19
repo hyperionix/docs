@@ -2,7 +2,7 @@
 layout: default
 title: Hooks In Depth
 nav_order: 1
-parent: Packages
+parent: Packages Types
 permalink: pages/hook-details
 ---
 

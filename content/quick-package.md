@@ -1,22 +1,34 @@
 ---
 layout: default
-title: Quick Package
+title: Package Step By Step
 nav_order: 2
 permalink: quick-package
 ---
 
-# Quick Package
-In this guide we implement a package for monitoring and blocking removing of some files. Detailed information about packages could be found [here](packages) but you can read it later. We recommend to use [vscode](https://code.visualstudio.com/) editor as we gonna to implement plugins for it in future. But you are still free to use any editor you like. In this case you have to replace `code` in the snippet.
+# Package Step By Step
+In this guide we implement a package for monitoring and blocking files deletion. Detailed information about packages could be found [here](packages) but you can read it later.
 
-```bat
-set EDITOR=code
+## Prepare development environment
+We recommend to use [vscode](https://code.visualstudio.com/) editor as we gonna to implement plugins for it in future but you are still free to use any editor you like.
+* Install and initilaize HDK ([instructions](index#installing))
+* Open powershell or cmd and go to HDK installation directory.
 ```
+cd /d %ALLUSERSPROFILE%\Hyperionix\hdk\
+```
+* Clone <a href="https://github.com/hyperionix/sysapi" target="_blank">sysapi</a> repository. It is a helper library to simplify low level Windows API access. Library documentation could be found <a href="/sysapi/index.html" target="_blank">here</a>.
+```
+git clone git@github.com:hyperionix/sysapi.git --branch master sysapi/
+```
+* Open HDK directory in vscode and install recomended extensions.
 
-## Hook
+
+## Writing Hook package
+Lets write the first [hook package](pages/hook-details). This type of packages is used to declare a place to setup pysical hook.
 ```bat
 mkdir .\packages\my\hooks\win32\MyNtDeleteFile\ 
-%EDITOR% .\packages\my\hooks\win32\MyNtDeleteFile\MyNtDeleteFile.lua
+code .\packages\my\hooks\win32\MyNtDeleteFile\MyNtDeleteFile.lua
 ```
+Paste the following snippet.
 ```lua
 Hook {
   name = "MyNtDeleteFile",
@@ -28,18 +40,18 @@ Hook {
   ]]
 }
 ```
-So we have written a [hook package](pages/hook-details) where we have declared a function we want to intercept and its arguments. Verify the package with `package-verifier` utility
+So here we are. We have declared a function we want to intercept and its arguments. Verify the package with `hdk` utility
 ```bat
-.\bin\package-verifier --verify MyNtDeleteFile
+.\bin\hdk --verify MyNtDeleteFile
 ```
 ```
 Verify package MyNtDeleteFile... OK 
 ```
-## Probe
-On the top of hook packages you can create [probe packages](pages/probe-details) where you can describe a logic and perform some manipulations
+## Writing Probe package
+[Probe packages]((pages/probe-details)) are describe logic built on the top of Hook packages. 
 ```bat
 mkdir ".\packages\my\probes\File Delete\"
-%EDITOR% ".\packages\my\probes\File Delete\File Delete.lua"
+code ".\packages\my\probes\File Delete\File Delete.lua"
 ```
 ```lua
 Probe {
@@ -61,22 +73,21 @@ Probe {
 }
 ```
 ```bat
-.\bin\package-verifier --verify "File Delete"
+.\bin\hdk --verify "File Delete"
 ```
 ```
 Verify package File Delete... OK 
 ```
-This how probe package definition looks like. It depends from two hooks: `MyNtDeleteFile` we've just written and `NtSetInformationFile` which isn't exist. But if you complete [HDK intialization](index) steps you should have hyperionix packages repository cloned and the hook is defined there. Actually, we also have `NtDeleteFile` hook definition there but lets assume we don't so we've written our own. `onEntry` is a function which will be executed in the context of the hook on the function entry. Currently we just print a message.
+This how probe package definition looks like. It depends from two hooks: `MyNtDeleteFile` we've just written and `NtSetInformationFile` which isn't exist. But if you complete [HDK intialization](index#initialization) steps you should have hyperionix packages repository cloned and the hook is defined there. Actually, we also have `NtDeleteFile` hook definition there but lets assume we don't so we've written our own. `onEntry` is a function which will be executed in the context of the hook on the function entry. Currently we just print a message.
 ## Package Test
-Package testing is unnecessary but we recommend doing it on the first steps. It will help you to understand better how packages work.
+Package testing is unnecessary but we strongly recommend doing it on the first steps. It will help you to understand better how packages work.
 ```bat
-%EDITOR% ".\packages\my\probes\File Delete\test.lua"
+code ".\packages\my\probes\File Delete\test.lua"
 ```
 ```lua
-local ffi = require"ffi"
-local sysapi = hp.sysapi
+setfenv(1, require "sysapi-ns")
 
-hp.pt.Packages {
+Packages {
   "File Delete"
 }
 
@@ -94,22 +105,22 @@ hp.pt.Case("Main") {
 }
 ```
 ```bat
-.\bin\package-verifier --run-test "File Delete"
+.\bin\hdk --run-test "File Delete"
 ```
 ```
-dbg [hppt:0] Run case [Main]
-dbg [hppt:0] Package [File Delete] has been loaded successfully, id = 117
+dbg: Run case [Main]
+dbg: Package [File Delete] has been loaded successfully, id = 117
 Hello from NtSetInformationFile
-dbg [hppt:0] Package [File Delete] has been unloaded successfully
+dbg: Package [File Delete] has been unloaded successfully
 Received events:
 ----------------------------------
 ```
 
 Lets see what happened. 
-1. The `package-verifier` find a package with name `"File Delete"` and executed its `test.lua`. 
+1. The `hdk` find a package with name `"File Delete"` and executed its `test.lua`. 
 2. It built all packages from `Packages` list.
 3. It executed all cases declared as Case (we have only single one)
-4. Inside `Main` test case `package-verifier` loaded `File Delete` package. You can consider this as analog of injecting the package into a process. After loading the packages hooks on `NtDeleteFile` and `NtSetInformationFile` were set.
+4. Inside `Main` test case `hdk` loaded `File Delete` package. You can consider this as analog of injecting the package into a process. After loading the packages hooks on `NtDeleteFile` and `NtSetInformationFile` were set.
 5. We trigger one of these function calls and just output `Hello` message.
 
 <details>
@@ -296,15 +307,15 @@ hp.pt.Case("Main") {
 }
 ```
 
-And run package-verifier
+And run `hdk` tool
 
 ```bat
-.\bin\package-verifier --run-test "File Delete"
+.\bin\hdk --run-test "File Delete"
 ```
 ```
-dbg [hppt:0] Run case [Main]
-dbg [hppt:0] Package [File Delete] has been loaded successfully, id = 127
-dbg [hppt:0] Package [File Delete] has been unloaded successfully
+dbg: Run case [Main]
+dbg: Package [File Delete] has been loaded successfully, id = 127
+dbg: Package [File Delete] has been unloaded successfully
 Received events:
 Attempt to delete protected file: 2
 File Deleted: 1
