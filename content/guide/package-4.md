@@ -73,6 +73,9 @@ local function NtSetInformationFile_onEntry(context)
         }:saveTo("file")
       }
     }
+  else
+    -- To call onExit
+    return true
   end
 end
 
