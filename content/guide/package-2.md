@@ -73,13 +73,13 @@ local function NtSetInformationFile_onEntry(context)
   end
 
   -- GetFinalPathNameByHandleA returns name with \\?\
-  -- fileName is declared wthout `local` keyword so it could be accessed in onExit and onBlock handlers
+  -- fileName is declared wthout `local` keyword so it could be accessed in onExit and onSkip handlers
   fileName = ffi.string(fileNameBuf):sub(5)
 
   if fileName:lower() == PROTECTED_FILE then
-    -- block the operation so onBlock callback will be called instead original hooked function
+    -- block the operation so onSkip callback will be called instead original hooked function
     return {
-      block = true
+      skip = true
     }
   end
 end
@@ -96,8 +96,8 @@ Probe {
     {
       name = "NtSetInformationFile",
       onEntry = NtSetInformationFile_onEntry,
-      onBlock = function(context)
-        -- the function is called on onEntry handler returns block = true
+      onSkip = function(context)
+        -- the function is called on onEntry handler returns skip = true
         -- here developer should do all to block the function execution
         context.r.rax = 0xC0000022
         context.p.IoStatusBlock.u.Status = 0xC0000022

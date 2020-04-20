@@ -6,7 +6,7 @@ parent: Packages Step By Step
 permalink: package-4
 ---
 # Using onExit callback
-Besides `onEntry` and `onBlock` callbacks probes could have `onExit` callback which is called only if `onEntry` returns boolean `true` or a table with field `callExit = true`. Let's add to our probe generating an event for all successful file removing operations.
+Besides `onEntry` and `onSkip` callbacks probes could have `onExit` callback which is called only if `onEntry` returns boolean `true` or a table with field `callExit = true`. Let's add to our probe generating an event for all successful file removing operations.
 
 ```lua
 setfenv(1, require "sysapi-ns")
@@ -66,7 +66,7 @@ local function NtSetInformationFile_onEntry(context)
   fileName = ffi.string(fileNameBuf):sub(5)
   if fileName:lower() == PROTECTED_FILE then
     return {
-      block = true,
+      skip = true,
       events = {
         Event {
           name = "Attempt to delete protected file",
@@ -109,7 +109,7 @@ Probe {
       onEntry = NtSetInformationFile_onEntry,
       -- add onExit callback to the probe definition
       onExit = NtSetInformationFile_onExit,
-      onBlock = function(context)
+      onSkip = function(context)
         context.r.rax = 0xC0000022
         context.p.IoStatusBlock.u.Status = 0xC0000022
       end

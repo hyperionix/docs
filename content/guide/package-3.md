@@ -69,7 +69,7 @@ local function NtSetInformationFile_onEntry(context)
   fileName = ffi.string(fileNameBuf):sub(5)
   if fileName:lower() == PROTECTED_FILE then
     return {
-      block = true,
+      skip = true,
       -- add list of events we want to emit
       events = {
         Event {
@@ -99,7 +99,7 @@ Probe {
     {
       name = "NtSetInformationFile",
       onEntry = NtSetInformationFile_onEntry,
-      onBlock = function(context)
+      onSkip = function(context)
         context.r.rax = 0xC0000022
         context.p.IoStatusBlock.u.Status = 0xC0000022
       end
