@@ -6,24 +6,20 @@ parent: Packages Step By Step
 permalink: package-2
 ---
 # Blocking Operations Probe
-Lets do something more interesting than printing the message. We want to write a probe which will be protect a file from removing. Let's see how it looks like and what features are available in packages execution environment.
+Lets do something more interesting than printing the message. We want to write a probe which will be protect a file from removing. Let's see how it looks like and what features are available in packages execution environment. Replace `File Delete.lua` file content with the following code.
 ```lua
 -- Use sysapi library
 setfenv(1, require "sysapi-ns")
-local fs = require "fs"
+local fs = require "fs.fs"
 
 -- Define path to file we will protect
-local PROTECTED_FILE = (fs.GetTempPath() .. "protectedFile"):lower()
+local PROTECTED_FILE = (fs.getTempDirectory() .. "protectedFile"):lower()
 
 -- Use LuaJIT powerfull FFI to declare some C stuff we need
 ffi.cdef [[
   typedef struct _FILE_DISPOSITION_INFORMATION {
     BOOLEAN DeleteFile;
   } FILE_DISPOSITION_INFORMATION, *PFILE_DISPOSITION_INFORMATION;
-
-  typedef struct _FILE_DISPOSITION_INFORMATION_EX {
-    ULONG Flags;
-  } FILE_DISPOSITION_INFORMATION_EX, *PFILE_DISPOSITION_INFORMATION_EX;
 
   enum {
     FILE_DISPOSITION_DELETE = 1
@@ -48,11 +44,13 @@ local function NtSetInformationFile_onEntry(context)
   -- Easy use enum constants with FFI
   if infoClass == ffi.C.FileDispositionInformation then
     -- Type casts
+    -- PFILE_DISPOSITION_INFORMATION type we declared earlier
     local info = ffi.cast("PFILE_DISPOSITION_INFORMATION", fileInfo)
     if info.DeleteFile then
       deleteFile = true
     end
   elseif infoClass == ffi.C.FileDispositionInformationEx then
+    -- we don't need to declare PFILE_DISPOSITION_INFORMATION_EX type as it is defined in sysapi library
     local info = ffi.cast("PFILE_DISPOSITION_INFORMATION_EX", fileInfo)
     if bit.band(info.Flags, ffi.C.FILE_DISPOSITION_DELETE) then
       deleteFile = true
@@ -64,12 +62,12 @@ local function NtSetInformationFile_onEntry(context)
     return
   end
 
-  -- Fast memory buffer allocation 
+  -- Fast memory buffer allocation
   local fileNameBuf = ffi.new("CHAR[?]", 1024)
-  -- Call external C functions 
+  -- Call external C functions
   local success = ffi.C.GetFinalPathNameByHandleA(context.p.FileHandle, fileNameBuf, 1024, 0)
   if not success then
-    return 
+    return
   end
 
   -- GetFinalPathNameByHandleA returns name with \\?\
@@ -100,7 +98,7 @@ Probe {
         -- the function is called on onEntry handler returns skip = true
         -- here developer should do all to block the function execution
         context.r.rax = 0xC0000022
-        context.p.IoStatusBlock.u.Status = 0xC0000022
+        context.p.IoStatusBlock.DUMMYUNIONNAME.Status = 0xC0000022
       end
     }
   }
@@ -111,8 +109,8 @@ Lets change the test also
 
 ```lua
 setfenv(1, require "sysapi-ns")
-local File = require "File"
-local fs = require "fs"
+local File = require "file.File"
+local fs = require "fs.fs"
 local bor = bit.bor
 
 Packages {
@@ -131,13 +129,11 @@ Case("Main") {
     loadPackage("File Delete")
     -- this operation will be blocked due to our probe
     assert(createAndDeleteFile(fs.getTempDirectory() .. [[\protectedFile]]) == false)
-    assert(ffi.C.GetLastError() == 5)
     -- this operation will be completed successfully
     assert(createAndDeleteFile(fs.getTempDirectory() .. [[\allowedFile]]) == true)
     unloadPackage("File Delete")
   end
 }
-
 ```
 
 And run `hdk` tool
@@ -152,5 +148,11 @@ dbg: Package [File Delete] has been unloaded successfully
 Received events:
 ----------------------------------
 ```
+
+Let's see what happened:
+1. Test loaded package "File Delete". It means that the Probe and all its dependent hooks will be loaded.
+2. The test did create-delete file actions twice. 
+3. On the first operation for the file `protectedFile` our probe blocked the operation.
+4. On the second operation for the file `allowedFile` probe didn't react and the operation was permitted. 
 
 In the [next](package-3) step we will show how probe packages could generate an [Events](events)

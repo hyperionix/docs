@@ -33,7 +33,7 @@ cd /d %ALLUSERSPROFILE%\Hyperionix\hdk\
 ```
 * Clone packages repository.
 ```bat
-git clone git@github.com:hyperionix/packages.git packages/hyperionix/
+git clone https://github.com/hyperionix/packages.git packages/hyperionix/
 ```
 * Verify HDK installation.
 ```bat

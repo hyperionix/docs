@@ -12,21 +12,17 @@ Lets change the probe as follows. We added a comments to mark what has changed.
 
 ```lua
 setfenv(1, require "sysapi-ns")
-local fs = require "fs"
+local fs = require "fs.fs"
 -- Use hp library for create Entities
 local FileEntity = hp.FileEntity
 local ProcessEntity = hp.ProcessEntity
 
-local PROTECTED_FILE = (fs.GetTempPath() .. "protectedFile"):lower()
+local PROTECTED_FILE = (fs.getTempDirectory() .. "protectedFile"):lower()
 
 ffi.cdef [[
   typedef struct _FILE_DISPOSITION_INFORMATION {
     BOOLEAN DeleteFile;
   } FILE_DISPOSITION_INFORMATION, *PFILE_DISPOSITION_INFORMATION;
-
-  typedef struct _FILE_DISPOSITION_INFORMATION_EX {
-    ULONG Flags;
-  } FILE_DISPOSITION_INFORMATION_EX, *PFILE_DISPOSITION_INFORMATION_EX;
 
   enum {
     FILE_DISPOSITION_DELETE = 1
@@ -64,7 +60,7 @@ local function NtSetInformationFile_onEntry(context)
   local fileNameBuf = ffi.new("CHAR[?]", 1024)
   local success = ffi.C.GetFinalPathNameByHandleA(context.p.FileHandle, fileNameBuf, 1024, 0)
   if not success then
-    return 
+    return
   end
   fileName = ffi.string(fileNameBuf):sub(5)
   if fileName:lower() == PROTECTED_FILE then
@@ -74,7 +70,7 @@ local function NtSetInformationFile_onEntry(context)
       events = {
         Event {
           name = "Attempt to delete protected file",
-          -- create target file entity and process which attempt to delete file 
+          -- create target file entity and process which attempt to delete file
           -- obviously it is current process. This will add detailed information
           -- about the file and the process to the event.
           fileName = FileEntity.fromPath(fileName),
@@ -101,7 +97,7 @@ Probe {
       onEntry = NtSetInformationFile_onEntry,
       onSkip = function(context)
         context.r.rax = 0xC0000022
-        context.p.IoStatusBlock.u.Status = 0xC0000022
+        context.p.IoStatusBlock.DUMMYUNIONNAME.Status = 0xC0000022
       end
     }
   }
@@ -121,10 +117,11 @@ Attempt to delete protected file: 1
 ----------------------------------
 ```
 
-Open events.jsonl file and view the events:
+Open events.jsonl file and view the last event on the last line:
 ```bat
 code events.jsonl
 ```
+The file is a valid JSON so you can easy beatify it e.g. with vscode (`Ctrl + P -> Format Document`) but note that it could be large enough. But you free to erase the file content when you need.
 
 In [the next](package-4) part we will show how to use `onExit` callback and how to inject the probe into real process for testing.
 

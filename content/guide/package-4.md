@@ -10,20 +10,16 @@ Besides `onEntry` and `onSkip` callbacks probes could have `onExit` callback whi
 
 ```lua
 setfenv(1, require "sysapi-ns")
-local fs = require "fs"
+local fs = require "fs.fs"
 local FileEntity = hp.FileEntity
 local ProcessEntity = hp.ProcessEntity
 
-local PROTECTED_FILE = (fs.GetTempPath() .. "protectedFile"):lower()
+local PROTECTED_FILE = (fs.getTempDirectory() .. "protectedFile"):lower()
 
 ffi.cdef [[
   typedef struct _FILE_DISPOSITION_INFORMATION {
     BOOLEAN DeleteFile;
   } FILE_DISPOSITION_INFORMATION, *PFILE_DISPOSITION_INFORMATION;
-
-  typedef struct _FILE_DISPOSITION_INFORMATION_EX {
-    ULONG Flags;
-  } FILE_DISPOSITION_INFORMATION_EX, *PFILE_DISPOSITION_INFORMATION_EX;
 
   enum {
     FILE_DISPOSITION_DELETE = 1
@@ -61,7 +57,7 @@ local function NtSetInformationFile_onEntry(context)
   local fileNameBuf = ffi.new("CHAR[?]", 1024)
   local success = ffi.C.GetFinalPathNameByHandleA(context.p.FileHandle, fileNameBuf, 1024, 0)
   if not success then
-    return 
+    return
   end
   fileName = ffi.string(fileNameBuf):sub(5)
   if fileName:lower() == PROTECTED_FILE then
@@ -111,9 +107,22 @@ Probe {
       onExit = NtSetInformationFile_onExit,
       onSkip = function(context)
         context.r.rax = 0xC0000022
-        context.p.IoStatusBlock.u.Status = 0xC0000022
+        context.p.IoStatusBlock.DUMMYUNIONNAME.Status = 0xC0000022
       end
     }
   }
 }
 ```
+
+Run the test 
+```bat
+.\bin\hdk --run-test "File Delete"
+```
+
+You will see something like:
+```
+Received events:
+Attempt to delete protected file: 1
+File Delete: 1
+```
+Here we generated an event for blocking file removing and the one more event for successfully file removing.

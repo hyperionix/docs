@@ -13,7 +13,7 @@ We recommend to use <a href="https://code.visualstudio.com/" target="_blank">vsc
 * Complete HDK installation and initialization steps if you haven't done it yet ([instructions](index#installing))
 * Clone <a href="https://github.com/hyperionix/sysapi" target="_blank">sysapi</a> repository. It is a helper library to simplify low level Windows API access. Library documentation could be found <a href="/sysapi/index.html" target="_blank">here</a>.
 ```bat
-git clone git@github.com:hyperionix/sysapi.git --branch master sysapi/
+git clone https://github.com/hyperionix/sysapi.git --branch develop sysapi/
 ```
 * Open Hyperionix development workspace in vscode. In the right bottom corner you'll see vscode extensions recommendations. Its better to install it.
 ```bat
@@ -87,8 +87,8 @@ code ".\packages\my\probes\File Delete\test.lua"
 ```
 ```lua
 setfenv(1, require "sysapi-ns")
-local File = require "File"
-local fs = require "fs"
+local File = require "file.File"
+local fs = require "fs.fs"
 local bor = bit.bor
 
 Packages {
@@ -105,7 +105,8 @@ end
 Case("Main") {
   case = function()
     loadPackage("File Delete")
-    assert(createAndDeleteFile(fs.getTempDirectory() .. [[\allowedFile]]) == 1)
+    -- create and delete success
+    assert(createAndDeleteFile(fs.getTempDirectory() .. [[\allowedFile]]) == true)
     unloadPackage("File Delete")
   end
 }
@@ -132,8 +133,7 @@ Lets see what happened.
 You can use [sysapi](sysapi) both in packages and tests.
 
 <details>
-  <summary>Windows Internals</summary>
-  
+  <summary>Windows Internals Reference</summary>
 On Windows a file could be deleted in a multiple ways but all of them are leads to the one of the following functions: ntdll!NtDeleteFile or ntdll!NtSetInformationFile with FILE_DISPOSITION_DELETE flag (actually there are can be more ways but lets consider only these two). In most cases like removing file from Windows Explorer the second one is used but we also intercept ntdll!NtDeleteFile to cover all cases. 
 </details>
 
