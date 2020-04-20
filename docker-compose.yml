@@ -1,9 +1,11 @@
 version: "3.5"
 services:
   jekyll:
+    network_mode: "host"
     image: jekyll/jekyll:latest
-    command: jekyll serve --host 0.0.0.0 --incremental
+    command: jekyll serve --host 192.168.71.130 --incremental 
+    # command : sleep 100000
     ports:
       - 4000:4000
     volumes:
-      - ./:/srv/jekyll
+      - /mnt/hgfs/d/dev/projects/hyperionix/docs/:/srv/jekyll
