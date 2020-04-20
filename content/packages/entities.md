@@ -2,16 +2,19 @@
 layout: default
 title: Entities
 permalink: entities
-nav_order: 4
+nav_order: 6
+parent: Packages Details
 ---
 
 # Entities
 
-Entities are special objects which designed with capability to be monitored and analyzed with Hyperionix Entity State Machine and/or track them in event storages. Each entity has Entity ID `eid` field in format 
-```
-eid://<EntityType>:<UID>
-```
-Entity includes information about the object it describes. This information could be extended inside your probe. Also entities could include other entities, you may notice that process entity includes file entity for main executable. Entity for the process could look like this:
+Entities are special objects which designed with capability to be monitored and analyzed with Hyperionix Entity State Machine and/or track them in event storages. Each entity has Entity ID `eid` field in format ```eid://<EntityType>:<UID>```. Entity includes information about the object it describes. This information could be extended inside your probe. Also entities could include other entities, e.g. in example below you may notice that process entity includes file entity for main executable. Typically entities used to include information about an object in [Events](events). E.g. you can find an example [here](package-3)
+
+To get information about entities data check the following:
+* [File Entity](/runtime/classes/FileEntity.html)
+* [Process Entity](/runtime/classes/ProcessEntity.html)
+
+Entity for the process could look like this:
 ```json
 {
     "backingFile": {

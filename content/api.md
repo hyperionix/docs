@@ -1,13 +1,13 @@
 ---
 layout: default
-title: API Docs
-nav_order: 6
+title: Development Libraries
+nav_order: 4
 permalink: api
 ---
 
-# API Docs
+# Development Libraries
 
-To simplify and speed up packages developemt devleopers can use two libraries. 
+To simplify and speed up packages development developers can use two libraries. 
 ## hplib
 <a href="/runtime/modules/hp.html" target="_blank">Documentation</a>
 

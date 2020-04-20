@@ -1,9 +1,12 @@
 ---
 layout: default
-title: ESMs In Depth
-nav_order: 3
-parent: Packages Types
-permalink: pages/esm-details
+title: ESMs
+nav_order: 4
+# parent: Packages Details
+nav_exclude: true
+# permalink: pages/esm-details
 ---
 
-# ESMs In Depth
+# ESMs
+Coming soon
+{: .label .label-yellow }

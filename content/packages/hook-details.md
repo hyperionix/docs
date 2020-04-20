@@ -1,9 +1,12 @@
 ---
 layout: default
-title: Hooks In Depth
+title: Hooks
 nav_order: 1
-parent: Packages Types
+parent: Packages Details
 permalink: pages/hook-details
 ---
 
-# Hooks In Depth
+# Hooks
+Coming soon
+{: .label .label-yellow }
+Developer documentation could be found [here](/runtime/classes/Hook.html)

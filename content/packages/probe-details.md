@@ -1,9 +1,12 @@
 ---
 layout: default
-title: Probes In Depth
+title: Probes
 nav_order: 2
-parent: Packages Types
+parent: Packages Details
 permalink: pages/probe-details
 ---
 
-# Probes In Depth
+# Probes
+Coming soon
+{: .label .label-yellow }
+Developer documentation could be found [here](/runtime/classes/Probe.html)

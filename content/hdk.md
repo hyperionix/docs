@@ -5,4 +5,9 @@ permalink: hdk
 nav_order: 7
 ---
 
-Clone sysapi repository. Sysapi is helper library which provide functions for working with various Windows API. Note that by default HDK will use preinstalled version of sysapi instead this one. In order to use sysapi you should add `--sysapi-path` option to hdk. Also you can fork the sysapi repository and use your own copy. We will happy to see PRs from you.
+# Hyperionix Development Kit
+HDK is toolset for helping to develop, test and debug packages locally before push it into wildlife. The main part of the toolset is `hdk` utility which allows to verify packages syntax, run its tests inside itself and event inject packages to the other processes. You can check it in action in [first package guide](guide)
+
+## HDK cheatsheet
+Coming soon
+{: .label .label-yellow }
