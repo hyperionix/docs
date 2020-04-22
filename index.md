@@ -20,6 +20,12 @@ Hyperionix Development Kit (HDK) is a toolset for local development and packages
 
 NOTE: currently you can't have HDK and Hyperionix Agent installed on the same machine.
 
+### Requirements
+Before you begin make sure you have:
+1. Windows 7 and above
+2. A working e-mail address
+3. [git](https://git-scm.com/downloads) installed
+
 ### Installing
 1. Register at <a href="https://admin.hyperionix.com/" target="_blank">Hyperionix Management Console</a>.
 2. Go to *Download* on the left menu and download HDK installer.
