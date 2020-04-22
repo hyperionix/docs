@@ -6,9 +6,9 @@ parent: Packages Step By Step
 permalink: package-3
 ---
 # Events Creation in Probe
-[Events](events) are some data that probes could created with developers defined information. Lets add an event generation everytime our probe will block the file removing operation. Also we will become familiar with [Entities](entity).
+[Events](events) are objects that probes can create with developer defined information. These events can then be sent to a central location from multiple agents. Let's take our existing probe and generate an event event time file deletion is blocked. In this section we will become familiar with [entities](entity).
 
-Lets change the probe as follows. We added a comments to mark what has changed.
+Let's change the probe as follows. We added a comments to mark what has changed.
 
 ```lua
 setfenv(1, require "sysapi-ns")
@@ -103,7 +103,7 @@ Probe {
   }
 }
 ```
-Run the test with hdk and you will see these two events received by the tool.
+Run the test with hdk and you will see these two events received by the tool. `hdk --run-test` will collect events and display them directly in the console. Once the probe is deployed to an agent, the agent will send events to a central location instead of printing to console.
 
 ```bat
 .\bin\hdk --run-test "File Delete"
@@ -117,11 +117,11 @@ Attempt to delete protected file: 1
 ----------------------------------
 ```
 
-Open events.jsonl file and view the last event on the last line:
+Open `events.jsonl` file and view the last event on the last line:
 ```bat
 code events.jsonl
 ```
-The file is a valid JSON so you can easy beatify it e.g. with vscode (`Ctrl + P -> Format Document`) but note that it could be large enough. But you free to erase the file content when you need.
+The file is a valid JSON so you can easy beatify it e.g. with vscode (`Ctrl + P -> Format Document`) but note that it could be very large. You can erase the file content when you need to make room.
 
 In [the next](package-4) part we will show how to use `onExit` callback and how to inject the probe into real process for testing.
 
