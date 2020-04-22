@@ -11,7 +11,30 @@ aux_links:
   "Hyperionix Packages on GitHub":
     - "//github.com/hyperionix/hyperionix"
 
-footer_content: "Copyright &copy; 2020 Hyperionix, Inc."
+footer_content: |
+  Copyright &copy; 2020 Hyperionix, Inc.
+  <script type="application/javascript">
+    document.querySelectorAll("div.highlight").forEach(function(h) {
+      copy = document.createElement("a");
+      copy.appendChild(document.createTextNode("Copy"));
+      copy.classList.add("btn");
+      copy.style = "position: absolute; right: 0; top: 0";
+      copy.onclick = function () {
+        var text = h.getElementsByTagName("code")[0].textContent;
+        var el = document.createElement("textarea");
+        el.value = text;
+        el.setAttribute("readonly", "");
+        el.style.position = "absolute";
+        el.style.left = "-9999px";
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand("copy");
+        document.body.removeChild(el);
+      }
+      h.parentNode.style = "position: relative;";
+      h.parentNode.appendChild(copy);
+    });
+  </script>
 
 # ga_tracking: UA-2709176-10
 
