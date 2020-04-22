@@ -30,7 +30,7 @@ footer_content: |
         el.select();
         document.execCommand("copy");
         document.body.removeChild(el);
-      }
+      };
       h.parentNode.style = "position: relative;";
       h.parentNode.appendChild(copy);
     });
