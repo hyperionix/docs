@@ -103,7 +103,7 @@ Probe {
   }
 }
 ```
-Notice we added another field to the return object called `events`. An event cant have any number of attributes that help describe it. All generated events must be returned there. We can control where each event goes with `saveTo("<target>")`. For now we'll use `saveTo("file")` to demonstrate events being logged into a file on the system.
+Notice we added another field to the return object called `events`. All generated events must be returned there. An event can have any number of attributes that help describe it. The only required attribute is `name`. We can control where each event goes with `saveTo("<target>")`. For now we'll use `saveTo("file")` to demonstrate events being logged into a file on the system.
 
 ```lua
     return {
@@ -119,7 +119,6 @@ Notice we added another field to the return object called `events`. An event can
       }
     }
 ```
-
 
 Events can also be combined to create bigger events. For example, you may want to combine an event for a certain file being deleted with an event for that same file being created later. You can then create a composite event noting a file was replaced. We will cover this later when we discuss ESM.
 
