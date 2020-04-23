@@ -116,8 +116,9 @@ Probe {
   }
 }
 ```
+We have defined an `onExit` handler that generates an event only when the hooked function was actually successful. This way we can collect events only when a file was actually deleted. 
 
-Run the test 
+Finally, run the test:
 ```bat
 .\bin\hdk --run-test "File Delete"
 ```
@@ -128,4 +129,4 @@ Received events:
 Attempt to delete protected file: 1
 File Delete: 1
 ```
-Here we generated an event for blocking file removing and the one more event for successfully file removing.
+Here we generated an event for blocked file removal and another event for successful file removal.
