@@ -6,7 +6,7 @@ parent: Packages Step By Step
 permalink: package-4
 ---
 # Using onExit callback
-Besides `onEntry` and `onSkip` callbacks probes could have `onExit` callback which is called only if `onEntry` returns boolean `true` or a table with field `callExit = true`. Let's add to our probe generating an event for all successful file removing operations.
+Besides `onEntry` and `onSkip` callbacks probes could have `onExit` callback which is called only if `onEntry` returns boolean `true` or a table with field `callExit = true`. Let's make our probe generate an event whenever a file remove operation is successfuly completed.
 
 ```lua
 setfenv(1, require "sysapi-ns")
@@ -129,4 +129,4 @@ Received events:
 Attempt to delete protected file: 1
 File Delete: 1
 ```
-Here we generated an event for blocked file removal and another event for successful file removal.
+Here we generated one event for blocked file removal and one more event for successful file removal.

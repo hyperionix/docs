@@ -91,7 +91,7 @@ This is what probe package definition looks like. It depends on two hooks: `MyNt
 
 `onEntry` is a package callback which will be executed in the context of the hook on the function entry. Detailed information about package callbacks could be found [here](package-callbacks). Currently we just print a message inside the callback. So if the Hook package is loaded all calls of `NtDeleteFile` syscall and `NtSetInformationFile` will call corresponding `onEntry` callback.
 ## Package test
-Package testing is not required but we strongly recommend writing some tests to verify your probes work as planned. Writing a test now will help you to understand better how packages work.
+Package testing is not required but we strongly recommend writing some tests to verify your probes work as intended. Writing a test now will help you understand better how packages work.
 ```bat
 code ".\packages\my\probes\File Delete\test.lua"
 ```
@@ -146,7 +146,7 @@ You can use [sysapi](sysapi) both in packages and tests.
 
 <details>
   <summary>Windows Internals Reference</summary>
-In Windows a file can be deleted in multiple ways but all of them lead to one of the following functions: `ntdll!NtDeleteFile` or `ntdll!NtSetInformationFile` with `FILE_DISPOSITION_DELETE` flag (actually there are can be more ways but let's consider only these two for now). In most cases like removing a file from Windows Explorer the second option is used but we also intercept ntdll!NtDeleteFile to cover all cases. 
+In Windows a file can be deleted in multiple ways but all of them lead to one of the following functions: `ntdll!NtDeleteFile` or `ntdll!NtSetInformationFile` with `FILE_DISPOSITION_DELETE` flag (actually there can be more ways but let's consider only these two for now). In most cases, e.g. removing a file from Windows Explorer, the second option is used but we also intercept ntdll!NtDeleteFile to cover all cases. 
 </details>
 
-In the [next](package-2) step we will improve the Probe and add feature to block target function execution.
+In the [next](package-2) step we will improve the Probe and add a feature to block the target function execution.

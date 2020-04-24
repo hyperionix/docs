@@ -10,28 +10,28 @@ permalink: /
 ## General information
 * Hyperionix is a platform for development and deployment of modular OS monitoring and behavior modification packages.
 * The platform gives you an ability to intercept almost all functions on target OS and write custom logic for the hook processing.
-* Packages are small code snippets written on modified and improved version of <a href="https://luajit.org/" target="_blank">LuaJIT 2.1.0-beta3</a> and the packages could depend on each other.
-* You can develop test and debug the packages locally. Once ready you can easily tune, deploy and control packages to multiple machines running Hyperionix Agent using <a href="https://admin.hyperionix.com/" target="_blank">Hyperionix Management Console</a>.
+* Packages are small code snippets written using modified and improved version of <a href="https://luajit.org/" target="_blank">LuaJIT 2.1.0-beta3</a> and may depend on each other.
+* You can develop test and debug packages locally. Once ready you can easily commit, deploy and configure packages on multiple machines running Hyperionix Agent using <a href="https://admin.hyperionix.com/" target="_blank">Hyperionix Management Console</a>.
 * You can use packages from <a href="https://github.com/topics/hyperionix-packages" target="_blank">community driven repositories</a> or create and support your own public or private package repositories.
 
 ## Hyperionix Development Kit
 
-Hyperionix Development Kit (HDK) is a toolset for local development and packages testing. More information could be found in [the full guide](hdk).
+Hyperionix Development Kit (HDK) is a toolset for local package development and testing. More information could be found in [the full guide](hdk).
 
 NOTE: currently you can't have HDK and Hyperionix Agent installed on the same machine.
 
 ### Requirements
 Before you begin make sure you have:
-1. Windows 7 and above
+1. Windows 10
 2. A working e-mail address
 3. [git](https://git-scm.com/downloads) installed
 
-### Installing
+### Installation
 1. Register at <a href="https://admin.hyperionix.com/" target="_blank">Hyperionix Management Console</a>.
 2. Go to *Download* on the left menu and download HDK installer.
 3. Install it on your machine.
 
-### Initialization
+### Setup
 * Install [HDK](hdk).
 * Open cmd or powershell and go to the HDK installation path.
 ```bat

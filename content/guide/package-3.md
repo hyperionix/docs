@@ -6,7 +6,7 @@ parent: Packages Step By Step
 permalink: package-3
 ---
 # Events Creation in Probe
-[Events](events) are objects that probes can create with developer defined information. These events can then be sent to a central location from multiple agents. Let's take our existing probe and generate an event event time file deletion is blocked. In this section we will become familiar with [entities](entity).
+[Events](events) are objects that probes can create with developer defined information. These events can then be sent to a central location from multiple agents. Let's take our existing probe and generate an event when file deletion is blocked. In this section we will become familiar with [entities](entity).
 
 Let's change the probe as follows. We added a comments to mark what has changed.
 
@@ -103,13 +103,13 @@ Probe {
   }
 }
 ```
-Notice we added another field to the return object called `events`. All generated events must be returned there. An event can have any number of attributes that help describe it. The only required attribute is `name`. We can control where each event goes with `saveTo("<target>")`. For now we'll use `saveTo("file")` to demonstrate events being logged into a file on the system.
+Notice we added another field to the return object called `events`. All generated events must be returned there. An event can have any number of attributes that help describe it. The only required attribute is `name`. We can control where each event goes with `saveTo("<target>")`. For now we'll use `saveTo("file")` to demonstrate events being logged into a file.
 
 ```lua
     return {
       events = {
         Event {
-          name = "Attempt to delete protected file",
+          name = "Attempt to delete a protected file",
           -- ...
         }:saveTo("file"), -- save the event to file
         Event {
@@ -120,7 +120,7 @@ Notice we added another field to the return object called `events`. All generate
     }
 ```
 
-Events can also be combined to create bigger events. For example, you may want to combine an event for a certain file being deleted with an event for that same file being created later. You can then create a composite event noting a file was replaced. We will cover this later when we discuss ESM.
+Events can also be combined to create complex events. For example, you may want to combine an event for a certain file being deleted with an event for that same file being created later. You can then create a composite event indicating that a file has been replaced. We will cover this later when we discuss ESM.
 
 Next, let's run the test with hdk and you will see these two events received by the tool. `hdk --run-test` will collect events and display them directly in the console. Once the probe is deployed to an agent, the agent will send events to a central location instead of printing to console.
 

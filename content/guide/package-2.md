@@ -6,7 +6,7 @@ parent: Packages Step By Step
 permalink: package-2
 ---
 # Blocking Operations Probe
-Let's do something more interesting than printing the message. We want to write a probe which will be protect a file from being. Let's see what it takes and what features are available in package execution environment. Replace `File Delete.lua` file content with the following code.
+Let's do something more interesting than printing a message. We would like to write a probe that will protect a file from being deleted. Let's see what it takes and what features are available in the package execution environment. Replace `File Delete.lua` file content with the following code.
 ```lua
 -- Use sysapi library
 setfenv(1, require "sysapi-ns")
@@ -105,7 +105,7 @@ Probe {
 }
 ```
 
-Let's also change the test to this code that will try to delete two files. Deleting the first file should file due to our probe. Deleting the second file should succeed.
+Let's also change our test for this probe so that it will try to delete two files "protectedFile" and "allowedFile". Attempts to delete the first file should fail because of our probe. Deleting the second file should succeed.
 
 ```lua
 setfenv(1, require "sysapi-ns")
@@ -150,7 +150,7 @@ Received events:
 ```
 
 Let's see what happened:
-1. Test loaded package "File Delete". It means that the probe and all of its dependent hooks were loaded.
+1. The test loaded package "File Delete". It means that the probe and all of its dependent hooks were loaded successfully.
 2. The test created and deleted two files in the temporary folder. One named `protectedFile` and one named `allowedFile`.
 3. When the test tried to delete `protectedFile` our probe blocked the operation.
 4. When the test tried to delete `allowedFile` out probe didn't react and the operation was permitted.
@@ -163,7 +163,7 @@ To block an operation the probe returned `skip = true` only when the correct fil
     }
 ```
 
-We also had to tell the probe what value to return to the caller of `NtSetInformationFile` when we skipped it. This is done with the `onSkip` method. In this case we return `0xC0000022` which is the value of `STATUS_ACCESS_DENIED`. Alternatively, you can return `0` to pretend the operation was successful or any other error value you want.
+We also had to tell the probe what value to return to the caller of `NtSetInformationFile` when we skipped the execution of this function. This is done using the `onSkip` callback method. In this case we return `0xC0000022` which is the value of `STATUS_ACCESS_DENIED`. Alternatively, you can return `0` to pretend the operation was successful or any other error value you want.
 
 ```lua
       onSkip = function(context)
@@ -174,4 +174,4 @@ We also had to tell the probe what value to return to the caller of `NtSetInform
       end
 ```
 
-In the [next](package-3) step we will show how probe packages could generate [events](events) that can be analyzed in a central location.
+In the [next](package-3) step we will show how probe packages could generate [events](events) that can be collected in one place and analyzed together.
