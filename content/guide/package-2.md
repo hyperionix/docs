@@ -6,132 +6,57 @@ parent: Packages Step By Step
 permalink: package-2
 ---
 # Blocking Operations Probe
-Let's do something more interesting than printing the message. We want to write a probe which will be protect a file from being. Let's see what it takes and what features are available in package execution environment. Replace `File Delete.lua` file content with the following code.
+Let's do something more interesting than printing the message. We want to write a probe which will forbid `notepad.exe` process creation. Let's see what it takes and what features are available in package execution environment. Replace `My Process Created.lua` file content with the following code.
 ```lua
 -- Use sysapi library
 setfenv(1, require "sysapi-ns")
-local fs = require "fs.fs"
-
--- Define path to file we will protect
-local PROTECTED_FILE = (fs.getTempDirectory() .. "protectedFile"):lower()
-
--- Use LuaJIT powerfull FFI to declare some C stuff we need
-ffi.cdef [[
-  typedef struct _FILE_DISPOSITION_INFORMATION {
-    BOOLEAN DeleteFile;
-  } FILE_DISPOSITION_INFORMATION, *PFILE_DISPOSITION_INFORMATION;
-
-  enum {
-    FILE_DISPOSITION_DELETE = 1
-  };
-
-  DWORD GetFinalPathNameByHandleA(
-    HANDLE hFile,
-    LPSTR  lpszFilePath,
-    DWORD  cchFilePath,
-    DWORD  dwFlags
-  );
-]]
-
--- The handler is triggered everytime ntdll!NtSetInformationFile function will be called
-local function NtSetInformationFile_onEntry(context)
-  -- Determine if NtSetInformationFile was called for delete operation
-  -- Access to all function arguments like they were defined in the corresponding hook
-  local infoClass = context.p.FileInformationClass
-  local fileInfo = context.p.FileInformation
-  local deleteFile = false
-
-  -- Easy use enum constants with FFI
-  if infoClass == ffi.C.FileDispositionInformation then
-    -- Type casts
-    -- PFILE_DISPOSITION_INFORMATION type we declared earlier
-    local info = ffi.cast("PFILE_DISPOSITION_INFORMATION", fileInfo)
-    if info.DeleteFile then
-      deleteFile = true
-    end
-  elseif infoClass == ffi.C.FileDispositionInformationEx then
-    -- we don't need to declare PFILE_DISPOSITION_INFORMATION_EX type as it is defined in sysapi library
-    local info = ffi.cast("PFILE_DISPOSITION_INFORMATION_EX", fileInfo)
-    if bit.band(info.Flags, ffi.C.FILE_DISPOSITION_DELETE) then
-      deleteFile = true
-    end
-  end
-
-  if not deleteFile then
-    -- Leave the handler as it isn't file delete operation
-    return
-  end
-
-  -- Fast memory buffer allocation
-  local fileNameBuf = ffi.new("CHAR[?]", 1024)
-  -- Call external C functions
-  local success = ffi.C.GetFinalPathNameByHandleA(context.p.FileHandle, fileNameBuf, 1024, 0)
-  if not success then
-    return
-  end
-
-  -- GetFinalPathNameByHandleA returns name with \\?\
-  -- fileName is declared wthout `local` keyword so it could be accessed in onExit and onSkip handlers
-  fileName = ffi.string(fileNameBuf):sub(5)
-
-  if fileName:lower() == PROTECTED_FILE then
-    -- block the operation so onSkip callback will be called instead original hooked function
-    return {
-      skip = true
-    }
-  end
-end
+-- FilePath class
+local FilePath = require "file.Path"
 
 Probe {
-  name = "File Delete",
+  name = "My Process Created",
   hooks = {
     {
-      name = "MyNtDeleteFile",
+      name = "MyNtCreateUserProcess",
+      ---@param context EntryExecutionContext
       onEntry = function(context)
-        print("Hello from NtDeleteFile")
-      end
-    },
-    {
-      name = "NtSetInformationFile",
-      onEntry = NtSetInformationFile_onEntry,
-      onSkip = function(context)
-        -- the function is called on onEntry handler returns skip = true
-        -- here developer should do all to block the function execution
-        context.r.rax = 0xC0000022
-        context.p.IoStatusBlock.DUMMYUNIONNAME.Status = 0xC0000022
+        local imagePath = FilePath.fromUS(context.p.ProcessParameters.ImagePathName)
+        if imagePath.basename:lower() == "notepad" then
+          context.r.eax = STATUS_ACCESS_DENIED
+          context:skipFunction()
+        end
       end
     }
   }
 }
 ```
 
-Let's also change the test to this code that will try to delete two files. Deleting the first file should file due to our probe. Deleting the second file should succeed.
+Let's also change the test to this code that will try to create two different processes. Creating the first should be succeed. Deleting the second process should be blocked due to our probe.
 
 ```lua
 setfenv(1, require "sysapi-ns")
-local File = require "file.File"
-local fs = require "fs.fs"
-local bor = bit.bor
+local Process = require "process.Process"
 
-Packages {
-  "File Delete"
-}
+local package = Package "My Process Created"
 
-local function createAndDeleteFile(fileName)
-  local f = File.create(fileName, CREATE_ALWAYS, bor(GENERIC_READWRITE, DELETE))
-  if f then
-    return f:delete()
+local function createAndTerminateProcess(path)
+  local p = Process.run(path)
+  if p then
+    p:terminate()
+    return true
   end
+  return false
 end
 
 Case("Main") {
   case = function()
-    loadPackage("File Delete")
-    -- this operation will be blocked due to our probe
-    assert(createAndDeleteFile(fs.getTempDirectory() .. [[\protectedFile]]) == false)
-    -- this operation will be completed successfully
-    assert(createAndDeleteFile(fs.getTempDirectory() .. [[\allowedFile]]) == true)
-    unloadPackage("File Delete")
+    package:load()
+    -- Here we are able to run calc.exe process.
+    assert(createAndTerminateProcess("calc.exe") == true)
+    -- Running notepad.exe should be failed
+    assert(createAndTerminateProcess("notepad.exe") == false)
+    assert(ffi.C.GetLastError(), ERROR_ACCESS_DENIED)
+    package:unload()
   end
 }
 ```
@@ -139,39 +64,32 @@ Case("Main") {
 And run `hdk` tool
 
 ```bat
-.\bin\hdk --run-test "File Delete"
+.\bin\hdk --run-test "My Process Created"
 ```
 ```
 dbg: Run case [Main]
-dbg: Package [File Delete] has been loaded successfully, id = 127
-dbg: Package [File Delete] has been unloaded successfully
+dbg: Package [My Process Created] has been loaded successfully, id = 127
+dbg: Package [My Process Created] has been unloaded successfully
 Received events:
 ----------------------------------
 ```
 
 Let's see what happened:
-1. Test loaded package "File Delete". It means that the probe and all of its dependent hooks were loaded.
-2. The test created and deleted two files in the temporary folder. One named `protectedFile` and one named `allowedFile`.
-3. When the test tried to delete `protectedFile` our probe blocked the operation.
-4. When the test tried to delete `allowedFile` out probe didn't react and the operation was permitted.
+1. Test loaded package "My Process Created". It means that the probe and all of its dependent hooks were loaded.
+2. The test tried to start two processes: `calc.exe` and `notepad.exe`
+3. The first attempt was successful because `calc.exe` is allowed to be run.
+4. The second attempt was failed because our probe with blocking operation was loaded and according to it `notepad.exe` is forbidden process.
 
-To block an operation the probe returned `skip = true` only when the correct file name was detected.
+To block an operation the probe call `skipFunction` context method only when the correct file name was detected. This methods marks that for current execution context target function shouldn't be called.
 
 ```lua
-    return {
-      skip = true
-    }
+  context:skipFunction()
 ```
 
-We also had to tell the probe what value to return to the caller of `NtSetInformationFile` when we skipped it. This is done with the `onSkip` method. In this case we return `0xC0000022` which is the value of `STATUS_ACCESS_DENIED`. Alternatively, you can return `0` to pretend the operation was successful or any other error value you want.
+We also had to tell the probe what value to return to the caller of `NtCreateUserProcess` when we skipped it. In this case we return `STATUS_ACCESS_DENIED` [NT Status](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/596a1078-e883-4972-9bbc-49e60bebca55). Alternatively, you can return `STATUS_SUCCESS` to pretend the operation was successful or any other error value you want.
 
-```lua
-      onSkip = function(context)
-        -- the function is called on onEntry handler returns skip = true
-        -- here developer should do all to block the function execution
-        context.r.rax = 0xC0000022
-        context.p.IoStatusBlock.DUMMYUNIONNAME.Status = 0xC0000022
-      end
+```lua 
+  context.r.eax = STATUS_ACCESS_DENIED
 ```
 
 In the [next](package-3) step we will show how probe packages could generate [events](events) that can be analyzed in a central location.

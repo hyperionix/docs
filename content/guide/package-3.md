@@ -6,133 +6,80 @@ parent: Packages Step By Step
 permalink: package-3
 ---
 # Events Creation in Probe
-[Events](events) are objects that probes can create with developer defined information. These events can then be sent to a central location from multiple agents. Let's take our existing probe and generate an event event time file deletion is blocked. In this section we will become familiar with [entities](entity).
+[Events](events) are objects that probes can create with developer defined information. These events can then be sent to a central location from multiple agents. Let's take our existing probe and generate an event event time process creation is blocked. In this section we will become familiar with [entities](entity) and [event channels](event-channels).
 
 Let's change the probe as follows. We added a comments to mark what has changed.
 
 ```lua
 setfenv(1, require "sysapi-ns")
-local fs = require "fs.fs"
+local FilePath = require "file.Path"
 -- Use hp library for create Entities
-local FileEntity = hp.FileEntity
 local ProcessEntity = hp.ProcessEntity
-
-local PROTECTED_FILE = (fs.getTempDirectory() .. "protectedFile"):lower()
-
-ffi.cdef [[
-  typedef struct _FILE_DISPOSITION_INFORMATION {
-    BOOLEAN DeleteFile;
-  } FILE_DISPOSITION_INFORMATION, *PFILE_DISPOSITION_INFORMATION;
-
-  enum {
-    FILE_DISPOSITION_DELETE = 1
-  };
-
-  DWORD GetFinalPathNameByHandleA(
-    HANDLE hFile,
-    LPSTR  lpszFilePath,
-    DWORD  cchFilePath,
-    DWORD  dwFlags
-  );
-]]
-
-local function NtSetInformationFile_onEntry(context)
-  local infoClass = context.p.FileInformationClass
-  local fileInfo = context.p.FileInformation
-  local deleteFile = false
-
-  if infoClass == ffi.C.FileDispositionInformation then
-    local info = ffi.cast("PFILE_DISPOSITION_INFORMATION", fileInfo)
-    if info.DeleteFile then
-      deleteFile = true
-    end
-  elseif infoClass == ffi.C.FileDispositionInformationEx then
-    local info = ffi.cast("PFILE_DISPOSITION_INFORMATION_EX", fileInfo)
-    if bit.band(info.Flags, ffi.C.FILE_DISPOSITION_DELETE) then
-      deleteFile = true
-    end
-  end
-
-  if not deleteFile then
-    return
-  end
-
-  local fileNameBuf = ffi.new("CHAR[?]", 1024)
-  local success = ffi.C.GetFinalPathNameByHandleA(context.p.FileHandle, fileNameBuf, 1024, 0)
-  if not success then
-    return
-  end
-  fileName = ffi.string(fileNameBuf):sub(5)
-  if fileName:lower() == PROTECTED_FILE then
-    return {
-      skip = true,
-      -- add list of events we want to emit
-      events = {
-        Event {
-          name = "Attempt to delete protected file",
-          -- create target file entity and process which attempt to delete file
-          -- obviously it is current process. This will add detailed information
-          -- about the file and the process to the event.
-          fileName = FileEntity.fromPath(fileName),
-          process = ProcessEntity.fromCurrent(),
-          critical = true,
-          foo = "bar" -- you can add any custom data to the event
-        }:saveTo("file") -- save the event to file
-      }
-    }
-  end
-end
+-- EventChannel is used to control where events will be stored
+local EventChannel = hp.EventChannel
 
 Probe {
-  name = "File Delete",
+  name = "My Process Created",
   hooks = {
     {
-      name = "MyNtDeleteFile",
+      name = "MyNtCreateUserProcess",
+      ---@param context EntryExecutionContext
       onEntry = function(context)
-        print("Hello from NtDeleteFile")
-      end
-    },
-    {
-      name = "NtSetInformationFile",
-      onEntry = NtSetInformationFile_onEntry,
-      onSkip = function(context)
-        context.r.rax = 0xC0000022
-        context.p.IoStatusBlock.DUMMYUNIONNAME.Status = 0xC0000022
+        local imagePath = FilePath.fromUS(context.p.ProcessParameters.ImagePathName)
+        if imagePath.basename:lower() == "notepad" then
+          context.r.eax = STATUS_ACCESS_DENIED
+          context:skipFunction()
+
+          -- Create an event
+          Event(
+            -- the event name
+            "Attempt to start forbidden process",
+            -- list of the event attributes
+            {
+              processPath = imagePath.full,
+              parentProcess = ProcessEntity.fromCurrent()
+            }
+            -- where to save the event
+          ):send(EventChannel.file)
+        end
       end
     }
   }
 }
 ```
-Notice we added another field to the return object called `events`. All generated events must be returned there. An event can have any number of attributes that help describe it. The only required attribute is `name`. We can control where each event goes with `saveTo("<target>")`. For now we'll use `saveTo("file")` to demonstrate events being logged into a file on the system.
+Notice we added `Event` function call in case of block process creation. All generated events must be created using this function. An event can have any number of attributes that help describe it. We can control where each event goes with `:send(EventChannel.<channel>)` event method. More information about event channels could be found [here](events#EventChannel). For now we'll use `:send(EventChannel.file)` to demonstrate events being logged into a file on the system.
 
 ```lua
-    return {
-      events = {
-        Event {
-          name = "Attempt to delete protected file",
-          -- ...
-        }:saveTo("file"), -- save the event to file
-        Event {
-          name = "Some other event",
-          -- ...
-        }:saveTo("file") -- save the event to file
-      }
+  Event(
+    "Event1",
+    {
+      foo = 1,
+      bar = "data"
     }
+  ):send(EventChannel.file)
+
+  Event(
+    "Event2",
+    {
+      foo = 2,
+      bar = "data"
+    }
+  ):send(EventChannel.splunk)
 ```
 
-Events can also be combined to create bigger events. For example, you may want to combine an event for a certain file being deleted with an event for that same file being created later. You can then create a composite event noting a file was replaced. We will cover this later when we discuss ESM.
+Events can also be combined to create bigger events. For example, you may want to combine an event for a certain file being downloaded from the Internet with an process created event from that same file. You can then create a composite event noting a suspicious process created. We will cover this later when we discuss ESM.
 
-Next, let's run the test with hdk and you will see these two events received by the tool. `hdk --run-test` will collect events and display them directly in the console. Once the probe is deployed to an agent, the agent will send events to a central location instead of printing to console.
+Next, let's run the test with hdk and you will see this event received by the tool. `hdk --run-test` will collect events and display them directly in the console. Once the probe is deployed to an agent, the agent will send events to a central location instead of printing to console.
 
 ```bat
-.\bin\hdk --run-test "File Delete"
+.\bin\hdk --run-test "My Process Created"
 ```
 ```
 dbg: Run case [Main]
-dbg: Package [File Delete] has been loaded successfully, id = 127
-dbg: Package [File Delete] has been unloaded successfully
+dbg: Package [My Process Created] has been loaded successfully, id = 127
+dbg: Package [My Process Created] has been unloaded successfully
 Received events:
-Attempt to delete protected file: 1
+Attempt to start forbidden process: 1
 ----------------------------------
 ```
 
