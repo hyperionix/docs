@@ -3,8 +3,7 @@ services:
   jekyll:
     network_mode: "host"
     image: jekyll/jekyll:latest
-    command: jekyll serve --host 192.168.71.130 --incremental 
-    # command : sleep 100000
+    command: jekyll serve --host 192.168.71.130 --incremental
     ports:
       - 4000:4000
     volumes:

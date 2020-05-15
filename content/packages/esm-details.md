@@ -7,6 +7,6 @@ nav_exclude: true
 # permalink: pages/esm-details
 ---
 
-# ESMs
+# ESM package
 Coming soon
 {: .label .label-yellow }

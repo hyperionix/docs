@@ -32,8 +32,10 @@
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#Functions">Functions</a></li>
 <li><a href="#Fields">Fields</a></li>
+<li><a href="#Constructors">Constructors </a></li>
+<li><a href="#Static_Methods">Static Methods </a></li>
+<li><a href="#Object_Methods">Object Methods </a></li>
 </ul>
 
 
@@ -71,45 +73,6 @@
 <p> Most of the fields are lazy evaluated</p>
 
 
-<h2><a href="#Functions">Functions</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#File.open">File.open (path, disp[, access=GENERIC_READWRITE[, attr=FILE_ATTRIBUTE_NORMAL[, share=FILE_SHARE_ALL]]])</a></td>
-	<td class="summary">Create or open a file</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#File.fromHandle">File.fromHandle (handle)</a></td>
-	<td class="summary">Create <a href="../classes/File.html#">File</a> object from a handle</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#File.fromPath">File.fromPath (path)</a></td>
-	<td class="summary">Create <a href="../classes/File.html#">File</a> object from itspath</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#File.stringifyAttributes">File.stringifyAttributes (attrs)</a></td>
-	<td class="summary">Stringify file attributes mask</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#File:read">File:read ([readSize=all])</a></td>
-	<td class="summary">Read the whole data of file or a part</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#File:queryInfo">File:queryInfo (infoClass, ctype, ctypePtr)</a></td>
-	<td class="summary">Query information about the file</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#File:setInfo">File:setInfo (infoClass, info, infoSize)</a></td>
-	<td class="summary">Set file information</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#File:delete">File:delete ()</a></td>
-	<td class="summary">Delete the file</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#File:close">File:close ()</a></td>
-	<td class="summary">Close the file</td>
-	</tr>
-</table>
 <h2><a href="#Fields">Fields</a></h2>
 <table class="function_list">
 	<tr>
@@ -119,6 +82,10 @@
 	<tr>
 	<td class="name" nowrap><a href="#File.attributes">File.attributes</a></td>
 	<td class="summary">attributes</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File.deviceType">File.deviceType</a></td>
+	<td class="summary">file device type</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#File.changeTime">File.changeTime</a></td>
@@ -148,262 +115,73 @@
 	<td class="name" nowrap><a href="#File.signers">File.signers</a></td>
 	<td class="summary">list of signers</td>
 	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File.openPath">File.openPath</a></td>
+	<td class="summary">path with File object was created</td>
+	</tr>
+</table>
+<h2><a href="#Constructors">Constructors </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#File.open">File.open (path, disp[, access=GENERIC_READWRITE[, attr=FILE_ATTRIBUTE_NORMAL[, share=FILE_SHARE_ALL]]])</a></td>
+	<td class="summary">Create or open a file</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File.fromHandle">File.fromHandle (handle)</a></td>
+	<td class="summary">Create <a href="../classes/File.html#">File</a> object from a handle</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File.fromPath">File.fromPath (path)</a></td>
+	<td class="summary">Create <a href="../classes/File.html#">File</a> object from its path</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File.fromFullPath">File.fromFullPath (fullPath)</a></td>
+	<td class="summary">Create <a href="../classes/File.html#">File</a> object from its full path</td>
+	</tr>
+</table>
+<h2><a href="#Static_Methods">Static Methods </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#File.delete">File.delete (path)</a></td>
+	<td class="summary">Delete file by name</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File.stringifyAttributes">File.stringifyAttributes (attrs)</a></td>
+	<td class="summary">Stringify file attributes mask</td>
+	</tr>
+</table>
+<h2><a href="#Object_Methods">Object Methods </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#File:read">File:read ([readSize=all])</a></td>
+	<td class="summary">Read the whole data of file or a part</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File:queryInfo">File:queryInfo (infoClass, ctype, ctypePtr)</a></td>
+	<td class="summary">Query information about the file</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File:setInfo">File:setInfo (infoClass, info, infoSize)</a></td>
+	<td class="summary">Set file information</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File:setInfo">File:setInfo (code, inBuf, outBuf, outBytes)</a></td>
+	<td class="summary">Send IOCTL to the device</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File:delete">File:delete ()</a></td>
+	<td class="summary">Delete the file</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#File:close">File:close ()</a></td>
+	<td class="summary">Close the file</td>
+	</tr>
 </table>
 
 <br/>
 <br/>
 
 
-    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
-
-    <dl class="function">
-    <dt>
-    <a name = "File.open"></a>
-    <strong>File.open (path, disp[, access=GENERIC_READWRITE[, attr=FILE_ATTRIBUTE_NORMAL[, share=FILE_SHARE_ALL]]])</strong>
-    </dt>
-    <dd>
-    Create or open a file
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">path</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         relative or absolute path to file
-        </li>
-        <li><span class="parameter">disp</span>
-            <span class="types"><span class="type">int</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">access</span>
-            <span class="types"><span class="type">int</span></span>
-         to the file
-         (<em>default</em> GENERIC_READWRITE)
-        </li>
-        <li><span class="parameter">attr</span>
-            <span class="types"><span class="type">int</span></span>
-         fileattributes
-         (<em>default</em> FILE_ATTRIBUTE_NORMAL)
-        </li>
-        <li><span class="parameter">share</span>
-            <span class="types"><span class="type">int</span></span>
-         sharing options
-         (<em>default</em> FILE_SHARE_ALL)
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        <a href="../classes/File.html#">File</a> object or <code>nil</code>
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "File.fromHandle"></a>
-    <strong>File.fromHandle (handle)</strong>
-    </dt>
-    <dd>
-    Create <a href="../classes/File.html#">File</a> object from a handle
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">handle</span>
-            <span class="types"><span class="type">int</span></span>
-         to the file
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        <a href="../classes/File.html#">File</a> object or <code>nil</code>
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "File.fromPath"></a>
-    <strong>File.fromPath (path)</strong>
-    </dt>
-    <dd>
-    Create <a href="../classes/File.html#">File</a> object from itspath
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">path</span>
-         full or relative path to the file
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        <a href="../classes/File.html#">File</a> object or <code>nil</code>
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "File.stringifyAttributes"></a>
-    <strong>File.stringifyAttributes (attrs)</strong>
-    </dt>
-    <dd>
-    Stringify file attributes mask
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">attrs</span>
-            <span class="types"><span class="type">int</span></span>
-         file attributes
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        string representation of the mask
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "File:read"></a>
-    <strong>File:read ([readSize=all])</strong>
-    </dt>
-    <dd>
-    Read the whole data of file or a part
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">readSize</span>
-            <span class="types"><span class="type">int</span></span>
-         size of data to read
-         (<em>default</em> all)
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        read data or <code>nil</code>
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "File:queryInfo"></a>
-    <strong>File:queryInfo (infoClass, ctype, ctypePtr)</strong>
-    </dt>
-    <dd>
-    Query information about the file
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">infoClass</span>
-         <code>FILE_INFORMATION_CLASS</code>
-        </li>
-        <li><span class="parameter">ctype</span>
-         C type returned by <code>ffi.typeof()</code>
-        </li>
-        <li><span class="parameter">ctypePtr</span>
-         pointer to the type
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        typed pointer depends on <code>typeName</code> or <code>nil</code>
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "File:setInfo"></a>
-    <strong>File:setInfo (infoClass, info, infoSize)</strong>
-    </dt>
-    <dd>
-    Set file information
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">infoClass</span>
-         <code>FILE_INFORMATION_CLASS</code>
-        </li>
-        <li><span class="parameter">info</span>
-         corresponding information structure
-        </li>
-        <li><span class="parameter">infoSize</span>
-         of the information
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        <code>true</code> of <code>nil</code>
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "File:delete"></a>
-    <strong>File:delete ()</strong>
-    </dt>
-    <dd>
-    Delete the file
-
-
-
-    <h3>Returns:</h3>
-    <ol>
-
-        <code>true</code> of <code>nil</code>
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "File:close"></a>
-    <strong>File:close ()</strong>
-    </dt>
-    <dd>
-    Close the file
-
-
-
-
-
-
-
-</dd>
-</dl>
     <h2 class="section-header "><a name="Fields"></a>Fields</h2>
 
     <dl class="function">
@@ -427,6 +205,20 @@
     </dt>
     <dd>
     attributes
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File.deviceType"></a>
+    <strong>File.deviceType</strong>
+    </dt>
+    <dd>
+    file device type
 
 
 
@@ -533,6 +325,362 @@
 
 
 </dd>
+    <dt>
+    <a name = "File.openPath"></a>
+    <strong>File.openPath</strong>
+    </dt>
+    <dd>
+    path with File object was created
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Constructors"></a>Constructors </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "File.open"></a>
+    <strong>File.open (path, disp[, access=GENERIC_READWRITE[, attr=FILE_ATTRIBUTE_NORMAL[, share=FILE_SHARE_ALL]]])</strong>
+    </dt>
+    <dd>
+    Create or open a file
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">path</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         relative or absolute path to file
+        </li>
+        <li><span class="parameter">disp</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">access</span>
+            <span class="types"><span class="type">int</span></span>
+         to the file
+         (<em>default</em> GENERIC_READWRITE)
+        </li>
+        <li><span class="parameter">attr</span>
+            <span class="types"><span class="type">int</span></span>
+         fileattributes
+         (<em>default</em> FILE_ATTRIBUTE_NORMAL)
+        </li>
+        <li><span class="parameter">share</span>
+            <span class="types"><span class="type">int</span></span>
+         sharing options
+         (<em>default</em> FILE_SHARE_ALL)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/File.html#">File</a> object or <code>nil</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File.fromHandle"></a>
+    <strong>File.fromHandle (handle)</strong>
+    </dt>
+    <dd>
+    Create <a href="../classes/File.html#">File</a> object from a handle
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">handle</span>
+            <span class="types"><span class="type">int</span></span>
+         to the file
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/File.html#">File</a> object or <code>nil</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File.fromPath"></a>
+    <strong>File.fromPath (path)</strong>
+    </dt>
+    <dd>
+    Create <a href="../classes/File.html#">File</a> object from its path
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">path</span>
+         full or relative path to the file
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/File.html#">File</a> object or <code>nil</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File.fromFullPath"></a>
+    <strong>File.fromFullPath (fullPath)</strong>
+    </dt>
+    <dd>
+    Create <a href="../classes/File.html#">File</a> object from its full path
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">fullPath</span>
+         full path to the file
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/File.html#">File</a> object or <code>nil</code>
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Static_Methods"></a>Static Methods </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "File.delete"></a>
+    <strong>File.delete (path)</strong>
+    </dt>
+    <dd>
+    Delete file by name
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">path</span>
+         to file
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code> on success, <code>false</code> on error
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File.stringifyAttributes"></a>
+    <strong>File.stringifyAttributes (attrs)</strong>
+    </dt>
+    <dd>
+    Stringify file attributes mask
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">attrs</span>
+            <span class="types"><span class="type">int</span></span>
+         file attributes
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string representation of the mask
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Object_Methods"></a>Object Methods </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "File:read"></a>
+    <strong>File:read ([readSize=all])</strong>
+    </dt>
+    <dd>
+    Read the whole data of file or a part
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">readSize</span>
+            <span class="types"><span class="type">int</span></span>
+         size of data to read
+         (<em>default</em> all)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        read data or <code>nil</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File:queryInfo"></a>
+    <strong>File:queryInfo (infoClass, ctype, ctypePtr)</strong>
+    </dt>
+    <dd>
+    Query information about the file
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">infoClass</span>
+         <code>FILE_INFORMATION_CLASS</code>
+        </li>
+        <li><span class="parameter">ctype</span>
+         C type returned by <code>ffi.typeof()</code>
+        </li>
+        <li><span class="parameter">ctypePtr</span>
+         pointer to the type
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        typed pointer depends on <code>typeName</code> or <code>nil</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File:setInfo"></a>
+    <strong>File:setInfo (infoClass, info, infoSize)</strong>
+    </dt>
+    <dd>
+    Set file information
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">infoClass</span>
+         <code>FILE_INFORMATION_CLASS</code>
+        </li>
+        <li><span class="parameter">info</span>
+         corresponding information structure
+        </li>
+        <li><span class="parameter">infoSize</span>
+         of the information
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code> or <code>false</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File:setInfo"></a>
+    <strong>File:setInfo (code, inBuf, outBuf, outBytes)</strong>
+    </dt>
+    <dd>
+    Send IOCTL to the device
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">code</span>
+         IOCTL code
+        </li>
+        <li><span class="parameter">inBuf</span>
+         input buffer
+        </li>
+        <li><span class="parameter">outBuf</span>
+         output buffer
+        </li>
+        <li><span class="parameter">outBytes</span>
+         number of returned bytes
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nonzero in case of success
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File:delete"></a>
+    <strong>File:delete ()</strong>
+    </dt>
+    <dd>
+    Delete the file
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code> or <code>false</code>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "File:close"></a>
+    <strong>File:close ()</strong>
+    </dt>
+    <dd>
+    Close the file
+
+
+
+
+
+
+
+</dd>
 </dl>
 
 
@@ -540,7 +688,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2020-04-20 13:04:47 </i>
+<i style="float:right;">Last updated 2020-05-14 23:25:46 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

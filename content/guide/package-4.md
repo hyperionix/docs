@@ -6,127 +6,62 @@ parent: Packages Step By Step
 permalink: package-4
 ---
 # Using onExit callback
-Besides `onEntry` and `onSkip` callbacks probes could have `onExit` callback which is called only if `onEntry` returns boolean `true` or a table with field `callExit = true`. Let's add to our probe generating an event for all successful file removing operations.
+Besides `onEntry` callback probes could have `onExit` callback which is called if it is defined and `onEntry` doesn't call `skipExitHook` or `skipFunction` context methods. Let's add to our probe generating an event for all successful process creation operations.
 
 ```lua
 setfenv(1, require "sysapi-ns")
-local fs = require "fs.fs"
-local FileEntity = hp.FileEntity
+local FilePath = require "file.Path"
 local ProcessEntity = hp.ProcessEntity
-
-local PROTECTED_FILE = (fs.getTempDirectory() .. "protectedFile"):lower()
-
-ffi.cdef [[
-  typedef struct _FILE_DISPOSITION_INFORMATION {
-    BOOLEAN DeleteFile;
-  } FILE_DISPOSITION_INFORMATION, *PFILE_DISPOSITION_INFORMATION;
-
-  enum {
-    FILE_DISPOSITION_DELETE = 1
-  };
-
-  DWORD GetFinalPathNameByHandleA(
-    HANDLE hFile,
-    LPSTR  lpszFilePath,
-    DWORD  cchFilePath,
-    DWORD  dwFlags
-  );
-]]
-
-local function NtSetInformationFile_onEntry(context)
-  local infoClass = context.p.FileInformationClass
-  local fileInfo = context.p.FileInformation
-  local deleteFile = false
-
-  if infoClass == ffi.C.FileDispositionInformation then
-    local info = ffi.cast("PFILE_DISPOSITION_INFORMATION", fileInfo)
-    if info.DeleteFile then
-      deleteFile = true
-    end
-  elseif infoClass == ffi.C.FileDispositionInformationEx then
-    local info = ffi.cast("PFILE_DISPOSITION_INFORMATION_EX", fileInfo)
-    if bit.band(info.Flags, ffi.C.FILE_DISPOSITION_DELETE) then
-      deleteFile = true
-    end
-  end
-
-  if not deleteFile then
-    return
-  end
-
-  local fileNameBuf = ffi.new("CHAR[?]", 1024)
-  local success = ffi.C.GetFinalPathNameByHandleA(context.p.FileHandle, fileNameBuf, 1024, 0)
-  if not success then
-    return
-  end
-  fileName = ffi.string(fileNameBuf):sub(5)
-  if fileName:lower() == PROTECTED_FILE then
-    return {
-      skip = true,
-      events = {
-        Event {
-          name = "Attempt to delete protected file",
-          fileName = FileEntity.fromPath(fileName),
-          process = ProcessEntity.fromCurrent(),
-          critical = true,
-          foo = "bar"
-        }:saveTo("file")
-      }
-    }
-  else
-    -- To call onExit
-    return true
-  end
-end
-
--- Define onExit callback which checks status of the operation and generate an event in case of success.
-local function NtSetInformationFile_onExit(context)
-  if context.r.eax == 0 then
-    return {
-      events = {
-        Event {
-          name = "File Delete",
-          fileName = FileEntity.fromPath(fileName),
-          process = ProcessEntity.fromCurrent()
-        }:saveTo("file")
-      }
-    }
-  end
-end
+local EventChannel = hp.EventChannel
 
 Probe {
-  name = "File Delete",
+  name = "My Process Created",
   hooks = {
     {
-      name = "MyNtDeleteFile",
+      name = "MyNtCreateUserProcess",
+      ---@param context EntryExecutionContext
       onEntry = function(context)
-        print("Hello from NtDeleteFile")
-      end
-    },
-    {
-      name = "NtSetInformationFile",
-      onEntry = NtSetInformationFile_onEntry,
-      -- add onExit callback to the probe definition
-      onExit = NtSetInformationFile_onExit,
-      onSkip = function(context)
-        context.r.rax = 0xC0000022
-        context.p.IoStatusBlock.DUMMYUNIONNAME.Status = 0xC0000022
+        local imagePath = FilePath.fromUS(context.p.ProcessParameters.ImagePathName)
+        if imagePath.basename:lower() == "notepad" then
+          context.r.eax = STATUS_ACCESS_DENIED
+          context:skipFunction()
+          Event(
+            "Attempt to start forbidden process",
+            {
+              processPath = imagePath.full,
+              parentProcess = ProcessEntity.fromCurrent()
+            }
+          ):send(EventChannel.file)
+        end
+      end,
+      ---@param context ExitExecutionContext
+      onExit = function(context)
+        -- Create one more event if a process was created successfully
+        if context.retval == STATUS_SUCCESS then
+          Event(
+            "Process Created",
+            {
+              newProcess = ProcessEntity.fromHandle(context.p.ProcessHandle[0]),
+              parentProcess = ProcessEntity.fromCurrent()
+            }
+          ):send(EventChannel.file, EventChannel.splunk)
+        end        
       end
     }
   }
 }
 ```
-We have defined an `onExit` handler that generates an event only when the hooked function was actually successful. This way we can collect events only when a file was actually deleted. 
+We have defined an `onExit` handler that generates an event only when the hooked function was actually successful. This way we can collect events only when a process was actually created. 
 
 Finally, run the test:
 ```bat
-.\bin\hdk --run-test "File Delete"
+.\bin\hdk --run-test "My Process Created"
 ```
 
 You will see something like:
 ```
 Received events:
-Attempt to delete protected file: 1
-File Delete: 1
+Attempt to start forbidden process: 1
+My Process Created: 1
 ```
-Here we generated an event for blocked file removal and another event for successful file removal.
+Here we generated an event for blocked process creation and another event for successful process creation.

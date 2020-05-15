@@ -34,6 +34,7 @@
 <ul>
 <li><a href="#Functions">Functions</a></li>
 <li><a href="#Fields">Fields</a></li>
+<li><a href="#Methods">Methods</a></li>
 </ul>
 
 
@@ -90,44 +91,12 @@
 	<td class="summary">Create Process Object from handle</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Process:queryInfo">Process:queryInfo (infoClass, ctype, ctypePtr[, assumedSize=sizeof(ctype)])</a></td>
-	<td class="summary">General routine to get infomration about the process</td>
+	<td class="name" nowrap><a href="#Process.current">Process.current ()</a></td>
+	<td class="summary">Create Process Object from current process</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Process:createThread">Process:createThread (funcAddr, paramAddr)</a></td>
-	<td class="summary">Create thread in the target process</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Process:memAlloc">Process:memAlloc (size[, protect[, allocType]])</a></td>
-	<td class="summary">Allocate virtual memory in the process</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Process:memFree">Process:memFree (addr)</a></td>
-	<td class="summary">Free virtual memory region in the process</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Process:memRead">Process:memRead (addr, buffer, size)</a></td>
-	<td class="summary">Read memory from the process</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Process:memWrite">Process:memWrite (addr, buffer, size)</a></td>
-	<td class="summary">Write data to the process</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Process:memProtect">Process:memProtect (addr, size, protect)</a></td>
-	<td class="summary">Change protection of the target memory region</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Process:memQuery">Process:memQuery (addr)</a></td>
-	<td class="summary">Query information about a memory region</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Process:close">Process:close ()</a></td>
-	<td class="summary">Close process handle</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Process:terminate">Process:terminate ([code])</a></td>
-	<td class="summary">Terminate process with optional code</td>
+	<td class="name" nowrap><a href="#Process.isCurrentProcess">Process.isCurrentProcess (handle)</a></td>
+	<td class="summary">Is the handle is the current process</td>
 	</tr>
 </table>
 <h2><a href="#Fields">Fields</a></h2>
@@ -175,6 +144,49 @@
 	<tr>
 	<td class="name" nowrap><a href="#Process.token">Process.token</a></td>
 	<td class="summary"><a href="../classes/Token.html#">Token</a> objectof the process</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Process:queryInfo">Process:queryInfo (infoClass, ctype, ctypePtr[, assumedSize=sizeof(ctype)])</a></td>
+	<td class="summary">General routine to get infomration about the process</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:createThread">Process:createThread (funcAddr, paramAddr)</a></td>
+	<td class="summary">Create thread in the target process</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:memAlloc">Process:memAlloc (size[, protect[, allocType]])</a></td>
+	<td class="summary">Allocate virtual memory in the process</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:memFree">Process:memFree (addr)</a></td>
+	<td class="summary">Free virtual memory region in the process</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:memRead">Process:memRead (addr, buffer, size)</a></td>
+	<td class="summary">Read memory from the process</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:memWrite">Process:memWrite (addr, buffer, size)</a></td>
+	<td class="summary">Write data to the process</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:memProtect">Process:memProtect (addr, size, protect)</a></td>
+	<td class="summary">Change protection of the target memory region</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:memQuery">Process:memQuery (addr)</a></td>
+	<td class="summary">Query information about a memory region</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:close">Process:close ()</a></td>
+	<td class="summary">Close process handle</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Process:terminate">Process:terminate ([code])</a></td>
+	<td class="summary">Terminate process with optional code</td>
 	</tr>
 </table>
 
@@ -299,6 +311,213 @@
 
 
 </dd>
+    <dt>
+    <a name = "Process.current"></a>
+    <strong>Process.current ()</strong>
+    </dt>
+    <dd>
+    Create Process Object from current process
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/Process.html#">Process</a> object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.isCurrentProcess"></a>
+    <strong>Process.isCurrentProcess (handle)</strong>
+    </dt>
+    <dd>
+    Is the handle is the current process
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">handle</span>
+            <span class="types"><span class="type">int</span></span>
+         handle of the process
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Process.backingFile"></a>
+    <strong>Process.backingFile</strong>
+    </dt>
+    <dd>
+    main executable path
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.bitness"></a>
+    <strong>Process.bitness</strong>
+    </dt>
+    <dd>
+    bitness (32 or 64)
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.commandLine"></a>
+    <strong>Process.commandLine</strong>
+    </dt>
+    <dd>
+    command line
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.createTime"></a>
+    <strong>Process.createTime</strong>
+    </dt>
+    <dd>
+    create time
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.pid"></a>
+    <strong>Process.pid</strong>
+    </dt>
+    <dd>
+    process ID
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.policyAslr"></a>
+    <strong>Process.policyAslr</strong>
+    </dt>
+    <dd>
+    ASLR enabled flag
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.policyBinarySignature"></a>
+    <strong>Process.policyBinarySignature</strong>
+    </dt>
+    <dd>
+    loading of images depending on the signatures for the image status
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.policyDep"></a>
+    <strong>Process.policyDep</strong>
+    </dt>
+    <dd>
+    DEP enabled flag
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.policyProhibitDynamicCode"></a>
+    <strong>Process.policyProhibitDynamicCode</strong>
+    </dt>
+    <dd>
+    restricting dynamic code generation and modification flag
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.ppid"></a>
+    <strong>Process.ppid</strong>
+    </dt>
+    <dd>
+    parent process ID
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Process.token"></a>
+    <strong>Process.token</strong>
+    </dt>
+    <dd>
+    <a href="../classes/Token.html#">Token</a> objectof the process
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
     <dt>
     <a name = "Process:queryInfo"></a>
     <strong>Process:queryInfo (infoClass, ctype, ctypePtr[, assumedSize=sizeof(ctype)])</strong>
@@ -586,171 +805,13 @@
 
 </dd>
 </dl>
-    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
-
-    <dl class="function">
-    <dt>
-    <a name = "Process.backingFile"></a>
-    <strong>Process.backingFile</strong>
-    </dt>
-    <dd>
-    main executable path
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Process.bitness"></a>
-    <strong>Process.bitness</strong>
-    </dt>
-    <dd>
-    bitness (32 or 64)
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Process.commandLine"></a>
-    <strong>Process.commandLine</strong>
-    </dt>
-    <dd>
-    command line
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Process.createTime"></a>
-    <strong>Process.createTime</strong>
-    </dt>
-    <dd>
-    create time
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Process.pid"></a>
-    <strong>Process.pid</strong>
-    </dt>
-    <dd>
-    process ID
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Process.policyAslr"></a>
-    <strong>Process.policyAslr</strong>
-    </dt>
-    <dd>
-    ASLR enabled flag
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Process.policyBinarySignature"></a>
-    <strong>Process.policyBinarySignature</strong>
-    </dt>
-    <dd>
-    loading of images depending on the signatures for the image status
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Process.policyDep"></a>
-    <strong>Process.policyDep</strong>
-    </dt>
-    <dd>
-    DEP enabled flag
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Process.policyProhibitDynamicCode"></a>
-    <strong>Process.policyProhibitDynamicCode</strong>
-    </dt>
-    <dd>
-    restricting dynamic code generation and modification flag
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Process.ppid"></a>
-    <strong>Process.ppid</strong>
-    </dt>
-    <dd>
-    parent process ID
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Process.token"></a>
-    <strong>Process.token</strong>
-    </dt>
-    <dd>
-    <a href="../classes/Token.html#">Token</a> objectof the process
-
-
-
-
-
-
-
-</dd>
-</dl>
 
 
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2020-04-20 13:04:47 </i>
+<i style="float:right;">Last updated 2020-05-14 23:25:46 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

@@ -14,6 +14,8 @@ permalink: /
 * You can develop test and debug the packages locally. Once ready you can easily tune, deploy and control packages to multiple machines running Hyperionix Agent using <a href="https://admin.hyperionix.com/" target="_blank">Hyperionix Management Console</a>.
 * You can use packages from <a href="https://github.com/topics/hyperionix-packages" target="_blank">community driven repositories</a> or create and support your own public or private package repositories.
 
+[Go To HMC](https://admin.hyperionix.com/){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [HMC Guide](hmc){: .btn .fs-5 .mb-4 .mb-md-0 }
+
 ## Hyperionix Development Kit
 
 Hyperionix Development Kit (HDK) is a toolset for local development and packages testing. More information could be found in [the full guide](hdk).
@@ -50,4 +52,3 @@ git clone https://github.com/hyperionix/packages.git packages/hyperionix/
 Detailed information for hdk utility could be found in [the full guide](hdk).
 
 You are now ready to [write your first package](guide).
-
