@@ -31,7 +31,7 @@ Probe {
 }
 ```
 
-Let's also change the test to this code that will try to create two different processes. Creating the first should be succeed. Deleting the second process should be blocked due to our probe.
+Let's also change the test to this code that will try to create two different processes. Creating the first should succeed. Deleting the second process should be blocked due to our probe.
 
 ```lua
 setfenv(1, require "sysapi-ns")
@@ -77,10 +77,11 @@ Received events:
 Let's see what happened:
 1. Test loaded package "My Process Created". It means that the probe and all of its dependent hooks were loaded.
 2. The test tried to start two processes: `calc.exe` and `notepad.exe`
-3. The first attempt was successful because `calc.exe` is allowed to be run.
-4. The second attempt was failed because our probe with blocking operation was loaded and according to it `notepad.exe` is forbidden process.
+3. The first attempt was successful because `calc.exe` is allowed to run.
+4. The second attempt failed because it tried starting notepad.exe and our probe blocked it as it's a forbidden process.
 
-To block an operation the probe call `skipFunction` context method only when the correct file name was detected. This methods marks that for current execution context target function shouldn't be called.
+To block an operation the probe calls skipFunction when it detects a forbidden process name. This context method tells the hook to not call the actual hooked function. In this case this means the process will not be started if skipFunction is used.
+
 
 ```lua
   context:skipFunction()

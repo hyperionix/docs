@@ -7,7 +7,7 @@ permalink: scheduled-probes
 ---
 
 # Scheduled Probe package
-This kind of package is used to do a job periodically inside Hyperionix Service process. The most typical use case is to collect a system data like process list, services list etc. The probe declaration looks like this:
+This kind of package is used to perform a job periodically inside Hyperionix Service process. The most typical use case is to collect system data like process list, services list etc. The probe declaration looks like this:
 ```lua
 ScheduledProbe {
   name = "string",

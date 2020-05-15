@@ -65,3 +65,5 @@ Attempt to start forbidden process: 1
 My Process Created: 1
 ```
 Here we generated an event for blocked process creation and another event for successful process creation.
+
+Follow [the last](package-5) part where we will show how to inject the probe into a process for testing.

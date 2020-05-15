@@ -27,12 +27,12 @@ Probe {
 ```
 
 * `name` (**string**) - name of the probe, should be unique across all used packages repositories (this limitation will be fixed in future).
-* `hooks` (**array**) - list of hooks the probe depends on. All hooks should be accessible for user (e.g. repositories with the hooks should be added and synchronized in HMC). 
+* `hooks` (**array**) - list of hooks the probe depends on. All hooks should be accessible for user (e.g. repositories with the hooks should be added and synchronized in HMC, see [docs](hmc#package-repositories)). 
 
 The main part of probes is probes callbacks.
 
 ## Probe callbacks
-Probe callbacks are `onEntry` and `onExit` functions in hook or probe declaration. The callbacks are executed before and after hooked function execution. They are main places where developers describe logic of hook processing. Both callbacks shares the same environment. It means that if a non-local variable will be defined in `onEntry` it is also possible to reference it in `onExit`. 
+Probe callbacks are `onEntry` and `onExit` functions in hook or probe declaration. The callbacks are executed before and after hooked function execution. Callbacks are used to implement your business logic of hook processing. Both callbacks share the same environment. This non-local variables defined in `onEntry` will also available in `onExit`. 
 
 In probe callbacks you can do the following: 
 * get and modify CPU registers state;

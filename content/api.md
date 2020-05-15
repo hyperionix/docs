@@ -21,6 +21,6 @@ The library is a part of Hyperionix Agent and contains the following:
 * <a href="https://github.com/hyperionix/sysapi" target="_blank">Source</a>
 
 The library implements some classes and modules to simplify working with WinAPI and NT API. With this library developers can work
-with OS objects like files, processes, registry etc. Actually the library isn't part of Hyperionix project and could be used independently but it is constantly expand and improved with keeping Hyperionix in mind. Feel free to create PR with your changes to the library and we will add it.
+with OS objects like files, processes, registry etc. Actually the library isn't part of the Hyperionix project and could be used independently but it is being actively expanded and improved while maintaining compatibility with the Hyperionix project. Feel free to create PR with your changes to the library and we will add it.
 
 

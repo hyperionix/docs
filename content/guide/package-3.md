@@ -47,7 +47,7 @@ Probe {
   }
 }
 ```
-Notice we added `Event` function call in case of block process creation. All generated events must be created using this function. An event can have any number of attributes that help describe it. We can control where each event goes with `:send(EventChannel.<channel>)` event method. More information about event channels could be found [here](events#EventChannel). For now we'll use `:send(EventChannel.file)` to demonstrate events being logged into a file on the system.
+Notice we added `Event` function call in case process creation is blocked. All generated events must be created using this function. An event can have any number of attributes that help describe it. We can control where each event goes with `:send(EventChannel.<channel>)` event method. More information about event channels could be found [here](events#EventChannel). For now we'll use `:send(EventChannel.file)` to demonstrate events being logged into a file on the system.
 
 ```lua
   Event(
@@ -67,7 +67,7 @@ Notice we added `Event` function call in case of block process creation. All gen
   ):send(EventChannel.splunk)
 ```
 
-Events can also be combined to create bigger events. For example, you may want to combine an event for a certain file being downloaded from the Internet with an process created event from that same file. You can then create a composite event noting a suspicious process created. We will cover this later when we discuss ESM.
+Events can also be combined to create bigger events. For example, you may want to combine an event for a certain file being downloaded from the Internet with an event for a process being created from that same file. You can then create a composite event noting a suspicious process. We will cover this later when we discuss ESM.
 
 Next, let's run the test with hdk and you will see this event received by the tool. `hdk --run-test` will collect events and display them directly in the console. Once the probe is deployed to an agent, the agent will send events to a central location instead of printing to console.
 
