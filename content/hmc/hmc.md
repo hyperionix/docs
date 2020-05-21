@@ -26,7 +26,7 @@ In the left side menu there is _Repositories_ menu where you can manage your pac
 > NOTE: Only github and bitbucket repositories are currently supported.
 
 Go to _Actions->Add_ menu. To add a repository you need to set its name and address like for `git clone` command. Both HTTPS and SSH are supported. You can also choose a branch you want to synchronize.
-* For github private repositories you have to create [personal access token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line) and add it to _API token_ field.
+* For github private repositories you have to create [personal access token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line) with **repo** access and add it to _API token_ field.
 * For bitbucket private repositories you have to add the Hyperionix access key to your repository settings.
     1. On _Repositories_ page copy the key using button _Copy public key_
     2. Add it to your repository settings using [this](https://confluence.atlassian.com/bitbucket/access-keys-294486051.html) documentation starting from Step 3.
