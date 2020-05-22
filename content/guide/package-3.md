@@ -6,7 +6,7 @@ parent: Packages Step By Step
 permalink: package-3
 ---
 # Events Creation in Probe
-[Events](events) are objects that probes can create with developer defined information. These events can then be sent to a central location from multiple agents. Let's take our existing probe and generate an event event time process creation is blocked. In this section we will become familiar with [entities](entity) and [event channels](event-channels).
+[Events](events) are objects that probes can create with developer defined information. These events can then be sent to a central location from multiple agents. Let's take our existing probe and generate an event everytime process creation is blocked. In this section we will become familiar with [entities](entity) and [event channels](event-channels).
 
 Let's change the probe as follows. We added a comments to mark what has changed.
 

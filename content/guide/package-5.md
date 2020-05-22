@@ -16,3 +16,5 @@ NOTE: your antivirus could block this operation.
 ```
 
 Try to start some processes. You should see events in the `hdk` console. Try to start notepad process. This operation should be blocked according to our probe.
+
+Only probes could be injected (not scheduled probes). Also not all process are suitable for HDK inject (but most likely it will work with full agent).

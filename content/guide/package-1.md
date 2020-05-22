@@ -53,7 +53,7 @@ Hook {
 You will notice this hook defines:
 * A name that can be referenced later.
 * A target function symbol. Specifically this hook targets `NtCreateUserProcess` in `ntdll.dll`.
-* Full function decleration so the hook knows which function arguments to get and what to return.
+* Full function declaration so the hook knows which function arguments to get and what to return.
 
 We have now declared a function we want to intercept and its arguments. Next we will verify the package with `hdk` utility:
 ```bat
@@ -92,7 +92,7 @@ Next we will verify the package with `hdk` utility:
 ```
 Verify package My Process Created... OK 
 ```
-This is what probe package definition looks like. It depends on `MyNtCreateUserProcess` hook. The clone hyperionix packages already has a `NtCreateUserProcess` hook definition and `Process Created` probe but we wrote our here for the sake of the example.
+This is what probe package definition looks like. It depends on `MyNtCreateUserProcess` hook. The cloned hyperionix packages already has a `NtCreateUserProcess` hook definition and `Process Created` probe but we wrote our here for the sake of the example.
 
 `onEntry` is a package callback which will be executed in the context of the hook on the function entry. Detailed information about package callbacks could be found [here](package-callbacks). Currently we just print a message inside the callback. So if the Hook package is loaded all calls of `NtCreateUserProcess` syscall will call corresponding `onEntry` callback.
 ## Package test

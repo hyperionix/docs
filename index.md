@@ -24,7 +24,7 @@ NOTE: currently you can't have HDK and Hyperionix Agent installed on the same ma
 
 ### Requirements
 Before you begin make sure you have:
-1. Windows 7 and above
+1. Windows 10 x64 
 2. A working e-mail address
 3. [git](https://git-scm.com/downloads) installed
 

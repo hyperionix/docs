@@ -31,7 +31,7 @@ Probe {
 }
 ```
 
-Let's also change the test to this code that will try to create two different processes. Creating the first should succeed. Deleting the second process should be blocked due to our probe.
+Let's also change the test to this code that will try to create two different processes. Creating the first should succeed. Creating the second process should be blocked due to our probe.
 
 ```lua
 setfenv(1, require "sysapi-ns")

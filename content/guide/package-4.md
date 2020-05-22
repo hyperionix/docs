@@ -39,7 +39,7 @@ Probe {
         -- Create one more event if a process was created successfully
         if context.retval == STATUS_SUCCESS then
           Event(
-            "Process Created",
+            "My Process Created",
             {
               newProcess = ProcessEntity.fromHandle(context.p.ProcessHandle[0]),
               parentProcess = ProcessEntity.fromCurrent()
@@ -66,4 +66,4 @@ My Process Created: 1
 ```
 Here we generated an event for blocked process creation and another event for successful process creation.
 
-Follow [the last](package-5) part where we will show how to inject the probe into a process for testing.
+Follow [the next](package-5) part where we will show how to inject the probe into a process for testing.

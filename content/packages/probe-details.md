@@ -32,7 +32,7 @@ Probe {
 The main part of probes is probes callbacks.
 
 ## Probe callbacks
-Probe callbacks are `onEntry` and `onExit` functions in hook or probe declaration. The callbacks are executed before and after hooked function execution. Callbacks are used to implement your business logic of hook processing. Both callbacks share the same environment. This non-local variables defined in `onEntry` will also available in `onExit`. 
+Probe callbacks are `onEntry` and `onExit` functions in hook or probe declaration. The callbacks are executed before and after hooked function execution. Callbacks are used to implement your business logic of hook processing. Both callbacks share the same environment so these non-local variables defined in `onEntry` will also available in `onExit`. 
 
 In probe callbacks you can do the following: 
 * get and modify CPU registers state;
@@ -53,7 +53,7 @@ Also the `context` object has the following fields:
 * `p` - access to hooked function formal parameters by name as they were defined in hook package.
 
 ### onExit
-The callback is executed after the hooked function if `skipExitHook` wasn't called in `onEntry`. Call `onExit` if it is necessary. Inside the callback you have access to function output parameters and return value so you are able to handle it and event change it. Note that you also have access to all function parameters like in `onEntry` callback. The callback parameter `context` has type `ExitExecutionContext` which obviously doesn't have `skipExitHook` and `skipFunction` methods. The object has the following fields:
+The callback is executed after the hooked function if `skipExitHook` wasn't called in `onEntry`. Call `onExit` if it is necessary. Inside the callback you have access to function output parameters and return value so you are able to handle it and even change it. Note that you also have access to all function parameters like in `onEntry` callback. The callback parameter `context` has type `ExitExecutionContext` which obviously doesn't have `skipExitHook` and `skipFunction` methods. The object has the following fields:
 * `r` - access to CPU registers state;
 * `pr` - `onEntry` CPU registers state;
 * `p` - access to hooked function formal parameters by name as they were defined in hook package;
