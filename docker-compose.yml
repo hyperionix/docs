@@ -1,10 +1,12 @@
 version: "3.5"
 services:
   jekyll:
-    network_mode: "host"
-    image: jekyll/jekyll:latest
-    command: jekyll serve --host 192.168.71.130 --incremental
+    image: jekyll/jekyll:3.8.5
+    command: jekyll serve --livereload --force_polling --host 0.0.0.0 --config _config.yml,_config_local.yml
     ports:
       - 4000:4000
+      - 35729:35729
+    environment:
+      JEKYLL_ENV: docker
     volumes:
-      - /mnt/hgfs/d/dev/projects/hyperionix/docs/:/srv/jekyll
+      - .:/srv/jekyll
