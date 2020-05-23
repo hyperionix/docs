@@ -2,7 +2,7 @@
 layout: default
 title: Hyperionix Development Kit
 permalink: hdk
-nav_order: 5
+nav_order: 6
 ---
 
 # Hyperionix Development Kit

@@ -3,7 +3,7 @@ layout: default
 title: Hyperionix Management Console
 permalink: hmc
 has_children: true
-nav_order: 4
+nav_order: 5
 ---
 
 # Hyperionix Management Console
