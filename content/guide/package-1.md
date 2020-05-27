@@ -11,6 +11,10 @@ permalink: package-1
 ## Prepare development environment
 We recommend using <a href="https://code.visualstudio.com/" target="_blank">vscode</a> editor but any other text editor should work too.
 * Complete [HDK installation and initialization steps](index#installing) if you haven't done it yet.
+* Go to HDK installation directory if you're not already there
+```bat
+cd $env:ALLUSERSPROFILE\Hyperionix\hdk\
+```
 * Clone <a href="https://github.com/hyperionix/sysapi" target="_blank">sysapi</a> repository. It is a helper library to simplify low level Windows API access. Library documentation could be found <a href="/sysapi/index.html" target="_blank">here</a>.
 ```bat
 git clone https://github.com/hyperionix/sysapi.git --branch develop sysapi/
