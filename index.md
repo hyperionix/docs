@@ -35,9 +35,9 @@ Before you begin make sure you have:
 
 ### Initialization
 * Install [HDK](hdk).
-* Open cmd or powershell and go to the HDK installation path.
+* Open powershell and go to the HDK installation path.
 ```bat
-cd /d %ALLUSERSPROFILE%\Hyperionix\hdk\
+cd $env:ALLUSERSPROFILE\Hyperionix\hdk\
 ```
 * Clone packages repository.
 ```bat
