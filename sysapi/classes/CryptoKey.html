@@ -36,21 +36,11 @@
 </ul>
 
 
-<h2>Modules</h2>
-<ul class="nowrap">
-  <li><a href="../modules/cert.html">cert</a></li>
-  <li><a href="../modules/path.html">path</a></li>
-  <li><a href="../modules/fs.html">fs</a></li>
-  <li><a href="../modules/time.html">time</a></li>
-  <li><strong>bytebuf</strong></li>
-  <li><a href="../modules/globals.html">globals</a></li>
-  <li><a href="../modules/stringify.html">stringify</a></li>
-</ul>
 <h2>Classes</h2>
 <ul class="nowrap">
   <li><a href="../classes/Crypto.html">Crypto</a></li>
   <li><a href="../classes/CryptoHash.html">CryptoHash</a></li>
-  <li><a href="../classes/CryptoKey.html">CryptoKey</a></li>
+  <li><strong>CryptoKey</strong></li>
   <li><a href="../classes/File.html">File</a></li>
   <li><a href="../classes/FileResources.html">FileResources</a></li>
   <li><a href="../classes/Process.html">Process</a></li>
@@ -61,23 +51,31 @@
   <li><a href="../classes/Thread.html">Thread</a></li>
   <li><a href="../classes/Token.html">Token</a></li>
 </ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/cert.html">cert</a></li>
+  <li><a href="../modules/path.html">path</a></li>
+  <li><a href="../modules/fs.html">fs</a></li>
+  <li><a href="../modules/time.html">time</a></li>
+  <li><a href="../modules/bytebuf.html">bytebuf</a></li>
+  <li><a href="../modules/globals.html">globals</a></li>
+  <li><a href="../modules/stringify.html">stringify</a></li>
+</ul>
 
 </div>
 
 <div id="content">
 
-<h1>Module <code>bytebuf</code></h1>
-<p>Function to create a byte buffer.</p>
-<p>
-
-</p>
+<h1>Class <code>CryptoKey</code></h1>
+<p>Class describes CryptoKey object</p>
+<p> The object could be created directly, use <a href="../classes/Crypto.html#Crypto:Key">Crypto:Key</a> instead</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#bytebuf.create">bytebuf.create (s)</a></td>
-	<td class="summary">Creates byte buffer.</td>
+	<td class="name" nowrap><a href="#CryptoKey:export">CryptoKey:export (blobType)</a></td>
+	<td class="summary">Export key to a binary blob</td>
 	</tr>
 </table>
 
@@ -89,33 +87,28 @@
 
     <dl class="function">
     <dt>
-    <a name = "bytebuf.create"></a>
-    <strong>bytebuf.create (s)</strong>
+    <a name = "CryptoKey:export"></a>
+    <strong>CryptoKey:export (blobType)</strong>
     </dt>
     <dd>
-    Creates byte buffer.
+    Export key to a binary blob
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">s</span>
-         a sequence of bytes in string
+        <li><span class="parameter">blobType</span>
+         key blob type - <code>CryptExportKey</code> <code>dwBlobType</code> parameter
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        byte buffer
+        typed pointer or string depending on <code>blobType</code>
     </ol>
 
 
 
-    <h3>Usage:</h3>
-    <ul>
-        <pre class="example"><span class="keyword">local</span> bytebuf = <span class="global">require</span> <span class="string">"bytebuf"</span>
-<span class="keyword">local</span> data = bytebuf.create(<span class="string">[[\x12\x34\x56\x78]]</span>)</pre>
-    </ul>
 
 </dd>
 </dl>
