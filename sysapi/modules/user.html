@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>hp-sysapi reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>hp-sysapi</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/cert.html">cert</a></li>
+  <li><a href="../modules/path.html">path</a></li>
+  <li><a href="../modules/fs.html">fs</a></li>
+  <li><a href="../modules/share.html">share</a></li>
+  <li><a href="../modules/time.html">time</a></li>
+  <li><strong>user</strong></li>
+  <li><a href="../modules/bytebuf.html">bytebuf</a></li>
+  <li><a href="../modules/globals.html">globals</a></li>
+  <li><a href="../modules/stringify.html">stringify</a></li>
+</ul>
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/Crypto.html">Crypto</a></li>
+  <li><a href="../classes/CryptoHash.html">CryptoHash</a></li>
+  <li><a href="../classes/CryptoKey.html">CryptoKey</a></li>
+  <li><a href="../classes/File.html">File</a></li>
+  <li><a href="../classes/FileResources.html">FileResources</a></li>
+  <li><a href="../classes/Process.html">Process</a></li>
+  <li><a href="../classes/RegKey.html">RegKey</a></li>
+  <li><a href="../classes/ServiceManager.html">ServiceManager</a></li>
+  <li><a href="../classes/Service.html">Service</a></li>
+  <li><a href="../classes/Sid.html">Sid</a></li>
+  <li><a href="../classes/Thread.html">Thread</a></li>
+  <li><a href="../classes/Token.html">Token</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>user</code></h1>
+<p>User operations</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#user.add">user.add (username[, password[, servername[, flags=UF_SCRIPT]]])</a></td>
+	<td class="summary">Add user</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#user.delete">user.delete (username[, servername])</a></td>
+	<td class="summary">Delete user</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#user.changePassword">user.changePassword ([username], oldpassword, newpassword[, servername])</a></td>
+	<td class="summary">Change user's password</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#user.forEach">user.forEach (func[, level=0[, filter=0[, servername]]])</a></td>
+	<td class="summary">Enumerate users and call the function for each</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "user.add"></a>
+    <strong>user.add (username[, password[, servername[, flags=UF_SCRIPT]]])</strong>
+    </dt>
+    <dd>
+    Add user
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">username</span>
+         user name
+        </li>
+        <li><span class="parameter">password</span>
+         password (if not specified, the user created without a password)
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">servername</span>
+         server DNS or NetBIOS name (if not specified, the local computer is used)
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">flags</span>
+         user account control flags
+         (<em>default</em> UF_SCRIPT)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        0 on success
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "user.delete"></a>
+    <strong>user.delete (username[, servername])</strong>
+    </dt>
+    <dd>
+    Delete user
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">username</span>
+         user name
+        </li>
+        <li><span class="parameter">servername</span>
+         server DNS or NetBIOS name (if not specified, the local computer is used)
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        0 on success
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "user.changePassword"></a>
+    <strong>user.changePassword ([username], oldpassword, newpassword[, servername])</strong>
+    </dt>
+    <dd>
+    Change user's password
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">username</span>
+         user name (if not specified, the logon name of the caller is used)
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">oldpassword</span>
+         old password
+        </li>
+        <li><span class="parameter">newpassword</span>
+         new password
+        </li>
+        <li><span class="parameter">servername</span>
+         server DNS or NetBIOS name (if not specified, the local computer is used)
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        0 on success
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "user.forEach"></a>
+    <strong>user.forEach (func[, level=0[, filter=0[, servername]]])</strong>
+    </dt>
+    <dd>
+    Enumerate users and call the function for each
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">func</span>
+         function to be called for each user
+        </li>
+        <li><span class="parameter">level</span>
+         information level of the data
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">filter</span>
+         user account types to be included in the enumeration
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">servername</span>
+         server DNS or NetBIOS name (if not specified, the local computer is used)
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2020-06-11 14:26:03 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

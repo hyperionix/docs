@@ -40,8 +40,8 @@
 <ul class="nowrap">
   <li><a href="../modules/cert.html">cert</a></li>
   <li><a href="../modules/path.html">path</a></li>
-  <li><strong>fs</strong></li>
-  <li><a href="../modules/share.html">share</a></li>
+  <li><a href="../modules/fs.html">fs</a></li>
+  <li><strong>share</strong></li>
   <li><a href="../modules/time.html">time</a></li>
   <li><a href="../modules/user.html">user</a></li>
   <li><a href="../modules/bytebuf.html">bytebuf</a></li>
@@ -68,8 +68,8 @@
 
 <div id="content">
 
-<h1>Module <code>fs</code></h1>
-<p>Filesystem operations</p>
+<h1>Module <code>share</code></h1>
+<p>Share operations</p>
 <p>
 
 </p>
@@ -78,28 +78,20 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#fs.dir">fs.dir (path)</a></td>
-	<td class="summary">Enumerate files in directory</td>
+	<td class="name" nowrap><a href="#share.add">share.add (shareName, sharePath[, shareType=STYPE_DISKTREE[, serverName]])</a></td>
+	<td class="summary">Add share</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fs.getDownloadsDirectory">fs.getDownloadsDirectory ([token])</a></td>
-	<td class="summary">Get user Downloads directory</td>
+	<td class="name" nowrap><a href="#share.check">share.check (sharePath, shareType[, serverName])</a></td>
+	<td class="summary">Check whether or not a server is sharing a resource with specified path</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fs.getWindowsDirectory">fs.getWindowsDirectory ([token])</a></td>
-	<td class="summary">Get user Windows directory</td>
+	<td class="name" nowrap><a href="#share.delete">share.delete (shareName[, serverName])</a></td>
+	<td class="summary">Delete share</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fs.getStartupDirectory">fs.getStartupDirectory ([token])</a></td>
-	<td class="summary">Get user Startup directory</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fs.getUserProfileDirectory">fs.getUserProfileDirectory ([token])</a></td>
-	<td class="summary">Get user UserProfile directory</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fs.getTempDirectory">fs.getTempDirectory ()</a></td>
-	<td class="summary">Get user Temp directory</td>
+	<td class="name" nowrap><a href="#share.forEach">share.forEach (func[, level=0[, serverName]])</a></td>
+	<td class="summary">Enumerate shares and call the function for each</td>
 	</tr>
 </table>
 
@@ -111,42 +103,27 @@
 
     <dl class="function">
     <dt>
-    <a name = "fs.dir"></a>
-    <strong>fs.dir (path)</strong>
+    <a name = "share.add"></a>
+    <strong>share.add (shareName, sharePath[, shareType=STYPE_DISKTREE[, serverName]])</strong>
     </dt>
     <dd>
-    Enumerate files in directory
+    Add share
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">path</span>
-         path to the directory
+        <li><span class="parameter">shareName</span>
+         share name
         </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        iterator to enumrate files
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fs.getDownloadsDirectory"></a>
-    <strong>fs.getDownloadsDirectory ([token])</strong>
-    </dt>
-    <dd>
-    Get user Downloads directory
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">token</span>
-         user token handle
+        <li><span class="parameter">sharePath</span>
+         share path
+        </li>
+        <li><span class="parameter">shareType</span>
+         share type
+         (<em>default</em> STYPE_DISKTREE)
+        </li>
+        <li><span class="parameter">serverName</span>
+         server DNS or NetBIOS name (if not specified, the local computer is used)
          (<em>optional</em>)
         </li>
     </ul>
@@ -154,7 +131,7 @@
     <h3>Returns:</h3>
     <ol>
 
-        Downloads directory path
+        0 on success
     </ol>
 
 
@@ -162,17 +139,23 @@
 
 </dd>
     <dt>
-    <a name = "fs.getWindowsDirectory"></a>
-    <strong>fs.getWindowsDirectory ([token])</strong>
+    <a name = "share.check"></a>
+    <strong>share.check (sharePath, shareType[, serverName])</strong>
     </dt>
     <dd>
-    Get user Windows directory
+    Check whether or not a server is sharing a resource with specified path
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">token</span>
-         user token handle
+        <li><span class="parameter">sharePath</span>
+         path to check for shared access
+        </li>
+        <li><span class="parameter">shareType</span>
+         LPDWORD that on success receives a bitmask of flags that specify the type of the shared resource
+        </li>
+        <li><span class="parameter">serverName</span>
+         server DNS or NetBIOS name (if not specified, the local computer is used)
          (<em>optional</em>)
         </li>
     </ul>
@@ -180,7 +163,7 @@
     <h3>Returns:</h3>
     <ol>
 
-        Windows directory path
+        0 on success
     </ol>
 
 
@@ -188,17 +171,20 @@
 
 </dd>
     <dt>
-    <a name = "fs.getStartupDirectory"></a>
-    <strong>fs.getStartupDirectory ([token])</strong>
+    <a name = "share.delete"></a>
+    <strong>share.delete (shareName[, serverName])</strong>
     </dt>
     <dd>
-    Get user Startup directory
+    Delete share
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">token</span>
-         user token handle
+        <li><span class="parameter">shareName</span>
+         share name
+        </li>
+        <li><span class="parameter">serverName</span>
+         server DNS or NetBIOS name (if not specified, the local computer is used)
          (<em>optional</em>)
         </li>
     </ul>
@@ -206,7 +192,7 @@
     <h3>Returns:</h3>
     <ol>
 
-        Startup directory path
+        0 on success
     </ol>
 
 
@@ -214,45 +200,28 @@
 
 </dd>
     <dt>
-    <a name = "fs.getUserProfileDirectory"></a>
-    <strong>fs.getUserProfileDirectory ([token])</strong>
+    <a name = "share.forEach"></a>
+    <strong>share.forEach (func[, level=0[, serverName]])</strong>
     </dt>
     <dd>
-    Get user UserProfile directory
+    Enumerate shares and call the function for each
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">token</span>
-         user token handle
+        <li><span class="parameter">func</span>
+         function to be called for each share
+        </li>
+        <li><span class="parameter">level</span>
+         information level of the data
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">serverName</span>
+         server DNS or NetBIOS name (if not specified, the local computer is used)
          (<em>optional</em>)
         </li>
     </ul>
 
-    <h3>Returns:</h3>
-    <ol>
-
-        UserProfile directory path
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fs.getTempDirectory"></a>
-    <strong>fs.getTempDirectory ()</strong>
-    </dt>
-    <dd>
-    Get user Temp directory
-
-
-
-    <h3>Returns:</h3>
-    <ol>
-
-        Temp directory path
-    </ol>
 
 
 
