@@ -9,7 +9,7 @@ nav_order: 3
 # Packages
 Hyperionix packages are modules written on modified and improved version of LuaJIT 2.1.0-beta3. These modules are loaded by Hyperionix Agent and used for getting information from the target system, changing its behaviour, monitoring its activity and generating events. 
 ## Packages Types
-Pages could be one of the following types:
+Packages could be one of the following types:
 * [Lib](lib-details) - a helper library package;
 * [Hook](hook-details) - describe a physical hook location;
 * [Probe](probe-details) - describe a logic built on top of one or multiple hooks;
