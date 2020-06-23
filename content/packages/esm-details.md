@@ -2,7 +2,7 @@
 layout: default
 title: ESMs
 nav_order: 4
-# parent: Packages Details
+parent: Packages Details
 nav_exclude: true
 permalink: esm-details
 ---
