@@ -34,6 +34,7 @@
 <ul>
 <li><a href="#Functions">Functions</a></li>
 <li><a href="#Fields">Fields</a></li>
+<li><a href="#Methods">Methods</a></li>
 </ul>
 
 
@@ -84,28 +85,53 @@
  The function shouldn't be used directly, use <a href="../classes/ServiceManager.html#ServiceManager:openService">ServiceManager:openService</a> instead</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Service:updateInfo">Service:updateInfo ()</a></td>
-	<td class="summary">Update information about the service
- After the function call you can access to the Service fields</td>
+	<td class="name" nowrap><a href="#Service.create">Service.create (scmHandle, name, binPath[, access=SERVICE_ALL_ACCESS[, serviceType=SERVICE_WIN32_OWN_PROCESS[, startType=SERVICE_DEMAND_START[, errControl=SERVICE_ERROR_NORMAL[, account[, password]]]]]])</a></td>
+	<td class="summary">Create a service
+ The function shouldn't be used directly, use <a href="../classes/ServiceManager.html#ServiceManager:createService">ServiceManager:createService</a> instead</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Service.fromHandle">Service.fromHandle (handle)</a></td>
+	<td class="summary">Create <a href="../classes/Service.html#">Service</a> object from a handle</td>
 	</tr>
 </table>
 <h2><a href="#Fields">Fields</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#self.type">self.type</a></td>
-	<td class="summary">service type</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#self.state">self.state</a></td>
+	<td class="name" nowrap><a href="#self.status.state">self.status.state</a></td>
 	<td class="summary">service state</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#self.pid">self.pid</a></td>
+	<td class="name" nowrap><a href="#self.status.pid">self.status.pid</a></td>
 	<td class="summary">PID if the service</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#self.fullInfo">self.fullInfo</a></td>
-	<td class="summary">full service information (<code><a href="https://docs.microsoft.com/en-us/windows/win32/api/winsvc/ns-winsvc-service_status_process">SERVICE_STATUS_PROCESS</a></code>)</td>
+	<td class="name" nowrap><a href="#self.status.full">self.status.full</a></td>
+	<td class="summary">full service status information (<code><a href="https://docs.microsoft.com/en-us/windows/win32/api/winsvc/ns-winsvc-service_status_process">SERVICE_STATUS_PROCESS</a></code>)</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Service:updateStatus">Service:updateStatus ()</a></td>
+	<td class="summary">Update information about the service status
+ After the function call you can access to the Service status fields</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Service:updateConfig">Service:updateConfig ()</a></td>
+	<td class="summary">Update information about the service config
+ After the function call you can access to the Service config fields</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Service:delete">Service:delete ()</a></td>
+	<td class="summary">Delete the service</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Service:start">Service:start ([args[, numArgs]])</a></td>
+	<td class="summary">Start the service</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Service:control">Service:control (code)</a></td>
+	<td class="summary">Send control code to the service</td>
 	</tr>
 </table>
 
@@ -141,7 +167,7 @@
     <h3>Returns:</h3>
     <ol>
 
-        Service object
+        <a href="../classes/Service.html#">Service</a> object
     </ol>
 
 
@@ -149,12 +175,143 @@
 
 </dd>
     <dt>
-    <a name = "Service:updateInfo"></a>
-    <strong>Service:updateInfo ()</strong>
+    <a name = "Service.create"></a>
+    <strong>Service.create (scmHandle, name, binPath[, access=SERVICE_ALL_ACCESS[, serviceType=SERVICE_WIN32_OWN_PROCESS[, startType=SERVICE_DEMAND_START[, errControl=SERVICE_ERROR_NORMAL[, account[, password]]]]]])</strong>
     </dt>
     <dd>
-    Update information about the service
- After the function call you can access to the Service fields
+    Create a service
+ The function shouldn't be used directly, use <a href="../classes/ServiceManager.html#ServiceManager:createService">ServiceManager:createService</a> instead
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">scmHandle</span>
+         handle to SCM
+        </li>
+        <li><span class="parameter">name</span>
+         name of the service
+        </li>
+        <li><span class="parameter">binPath</span>
+         fully qualified path to the service binary file, can also include arguments
+        </li>
+        <li><span class="parameter">access</span>
+         desired access to the service
+         (<em>default</em> SERVICE_ALL_ACCESS)
+        </li>
+        <li><span class="parameter">serviceType</span>
+         service type
+         (<em>default</em> SERVICE_WIN32_OWN_PROCESS)
+        </li>
+        <li><span class="parameter">startType</span>
+         service start options
+         (<em>default</em> SERVICE_DEMAND_START)
+        </li>
+        <li><span class="parameter">errControl</span>
+         severity of the error, and action taken, if this service fails to start
+         (<em>default</em> SERVICE_ERROR_NORMAL)
+        </li>
+        <li><span class="parameter">account</span>
+         name of the account under which the service should run
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">password</span>
+         password to the account name specified by the account parameter
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/Service.html#">Service</a> object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Service.fromHandle"></a>
+    <strong>Service.fromHandle (handle)</strong>
+    </dt>
+    <dd>
+    Create <a href="../classes/Service.html#">Service</a> object from a handle
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">handle</span>
+         handle of the service
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../classes/Service.html#">Service</a> object
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "self.status.state"></a>
+    <strong>self.status.state</strong>
+    </dt>
+    <dd>
+    service state
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.status.pid"></a>
+    <strong>self.status.pid</strong>
+    </dt>
+    <dd>
+    PID if the service
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.status.full"></a>
+    <strong>self.status.full</strong>
+    </dt>
+    <dd>
+    full service status information (<code><a href="https://docs.microsoft.com/en-us/windows/win32/api/winsvc/ns-winsvc-service_status_process">SERVICE_STATUS_PROCESS</a></code>)
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Service:updateStatus"></a>
+    <strong>Service:updateStatus ()</strong>
+    </dt>
+    <dd>
+    Update information about the service status
+ After the function call you can access to the Service status fields
 
 
 
@@ -168,61 +325,97 @@
 
 
 </dd>
-</dl>
-    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
-
-    <dl class="function">
     <dt>
-    <a name = "self.type"></a>
-    <strong>self.type</strong>
+    <a name = "Service:updateConfig"></a>
+    <strong>Service:updateConfig ()</strong>
     </dt>
     <dd>
-    service type
+    Update information about the service config
+ After the function call you can access to the Service config fields
 
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code> on success
+    </ol>
 
 
 
 
 </dd>
     <dt>
-    <a name = "self.state"></a>
-    <strong>self.state</strong>
+    <a name = "Service:delete"></a>
+    <strong>Service:delete ()</strong>
     </dt>
     <dd>
-    service state
+    Delete the service
 
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code> on success
+    </ol>
 
 
 
 
 </dd>
     <dt>
-    <a name = "self.pid"></a>
-    <strong>self.pid</strong>
+    <a name = "Service:start"></a>
+    <strong>Service:start ([args[, numArgs]])</strong>
     </dt>
     <dd>
-    PID if the service
+    Start the service
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">args</span>
+         array of the null-terminated strings to be passed to the ServiceMain
+ function for the service as arguments, where first arg is the name of the service
+ followed by any additional arguments
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">numArgs</span>
+         number of strings in the args array
+         (<em>optional</em>)
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code> on success
+    </ol>
 
 
 
 
 </dd>
     <dt>
-    <a name = "self.fullInfo"></a>
-    <strong>self.fullInfo</strong>
+    <a name = "Service:control"></a>
+    <strong>Service:control (code)</strong>
     </dt>
     <dd>
-    full service information (<code><a href="https://docs.microsoft.com/en-us/windows/win32/api/winsvc/ns-winsvc-service_status_process">SERVICE_STATUS_PROCESS</a></code>)
+    Send control code to the service
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">code</span>
+         system or user-defined control code
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+        <code>true</code> on success
+    </ol>
 
 
 
@@ -235,7 +428,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2020-06-23 07:33:59 </i>
+<i style="float:right;">Last updated 2020-08-05 13:30:18 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
