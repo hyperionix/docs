@@ -12,7 +12,7 @@ aux_links:
     - "//github.com/hyperionix/hyperionix"
 
 footer_content: |
-  Copyright &copy; 2020 Hyperionix, Inc.
+  Copyright &copy; 2020 Hyperionix, Inc. <a href="mailto:info@hyperionix.com">info@hyperionix.com</a>
   <script type="application/javascript">
     document.querySelectorAll("div.highlight").forEach(function(h) {
       copy = document.createElement("a");
